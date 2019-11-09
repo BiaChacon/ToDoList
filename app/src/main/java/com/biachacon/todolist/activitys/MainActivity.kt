@@ -1,0 +1,99 @@
+package com.biachacon.todolist.activitys
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.viewpager.widget.ViewPager
+import com.biachacon.todolist.R
+import com.biachacon.todolist.adapaters.FixedTabsPageAdapter
+import kotlinx.android.synthetic.main.activity_main.*
+
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.activity_main)
+        if(getSupportActionBar() != null)
+        {
+            getSupportActionBar()!!.setElevation(0.0F)
+        }
+
+        val pageAdapter =
+            FixedTabsPageAdapter(supportFragmentManager)
+
+        viewpager.adapter = pageAdapter
+
+        tab.setupWithViewPager(viewpager)
+        tab.getTabAt(0)
+        tab.getTabAt(1)
+        tab.getTabAt(2)
+
+        viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                when (position) {
+                    0 -> {
+                        tab.getTabAt(0)
+                        tab.getTabAt(1)
+                        tab.getTabAt(2)
+                    }
+                    1 -> {
+                        tab.getTabAt(0)
+                        tab.getTabAt(1)
+                        tab.getTabAt(2)
+                    }
+                    2 -> {
+                        tab.getTabAt(0)
+                        tab.getTabAt(1)
+                        tab.getTabAt(2)
+                    }
+                    else -> return
+                }
+            }
+
+            override fun onPageSelected(position: Int) {
+            }
+
+        })
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here.
+        val id = item.getItemId()
+
+        if (id == R.id.action_one) {
+            Toast.makeText(this, "Item One Clicked", Toast.LENGTH_LONG).show()
+            return true
+        }
+        if (id == R.id.action_two) {
+            Toast.makeText(this, "Item Two Clicked", Toast.LENGTH_LONG).show()
+            return true
+        }
+        if (id == R.id.action_three) {
+            Toast.makeText(this, "Item Three Clicked", Toast.LENGTH_LONG).show()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+
+    }
+
+}
