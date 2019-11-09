@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.biachacon.todolist.R
 import com.biachacon.todolist.adapaters.FixedTabsPageAdapter
+import com.biachacon.todolist.fragments.AddListDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -80,15 +81,16 @@ class MainActivity : AppCompatActivity() {
         val id = item.getItemId()
 
         if (id == R.id.action_one) {
-            Toast.makeText(this, "Item One Clicked", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Search", Toast.LENGTH_LONG).show()
             return true
         }
         if (id == R.id.action_two) {
-            Toast.makeText(this, "Item Two Clicked", Toast.LENGTH_LONG).show()
+            var dialog = AddListDialogFragment()
+            dialog.show(supportFragmentManager, "Dialog")
             return true
         }
         if (id == R.id.action_three) {
-            Toast.makeText(this, "Item Three Clicked", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Settings", Toast.LENGTH_LONG).show()
             return true
         }
 

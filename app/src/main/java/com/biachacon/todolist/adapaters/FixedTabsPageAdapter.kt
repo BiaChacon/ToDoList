@@ -3,6 +3,7 @@ package com.biachacon.todolist.adapaters
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.biachacon.todolist.fragments.Fragment1
 import com.biachacon.todolist.fragments.*
 
 
@@ -23,7 +24,7 @@ class FixedTabsPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     }
 
     override fun getCount(): Int {
-        return 3;
+        return 3
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

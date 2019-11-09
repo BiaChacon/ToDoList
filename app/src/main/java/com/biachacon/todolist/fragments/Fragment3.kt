@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.biachacon.todolist.R
+import kotlinx.android.synthetic.main.layout_fragment3.*
 
 /**
  * A simple [Fragment] subclass.
@@ -17,7 +18,11 @@ class Fragment3 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+        fab3.setOnClickListener {
+
+        }
+
         return inflater.inflate(R.layout.layout_fragment3, container, false)
     }
 

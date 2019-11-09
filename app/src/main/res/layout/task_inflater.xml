@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_normal"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+
+        <CheckBox
+            android:id="@+id/nameTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name Task"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/dateTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:text="date task"/>
+
+        <TextView
+            android:id="@+id/nameToDoList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:text="Name List"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="@android:color/holo_red_dark"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:visibility="gone"
+        android:gravity="right|center_vertical"
+        android:id="@+id/layout_gone">
+
+        <Button
+            android:id="@+id/undo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Desfazer"
+            android:textAllCaps="true"
+            android:visibility="gone"
+            android:textColor="@android:color/white"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="380dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_gravity="center_horizontal|bottom"/>
+
+</FrameLayout>
