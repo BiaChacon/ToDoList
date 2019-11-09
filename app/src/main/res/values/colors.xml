@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#d500f9</color>
-    <color name="colorPrimaryDark">#9e00c5</color>
-    <color name="colorAccent">#d500f9</color>
+    <color name="colorPrimary">#FF1744</color>
+    <color name="colorPrimaryDark">#D50000</color>
+    <color name="colorAccent">#FF1744</color>
     <color name="colorLight">#ff5bff</color>
+
     <color name="red">@android:color/holo_red_dark</color>
     <color name="write">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="grey">#BEBEBE</color>
-    <color name="indicatorColor">#ffffff</color>
+
+    <color name="indicatorColor">#00B0FF</color>
+    <color name="fab">#00B0FF</color>
 
 </resources>
