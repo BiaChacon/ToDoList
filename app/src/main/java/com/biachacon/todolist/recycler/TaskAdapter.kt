@@ -5,9 +5,11 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.biachacon.todolist.R
+import com.biachacon.todolist.dialogs.ConfirmDeleteDialog
 import com.biachacon.todolist.dialogs.ConfirmFinishedDialog
 import com.biachacon.todolist.model.Task
 import java.util.*
@@ -20,6 +22,8 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
     //private val handler = Handler()
     //var pendingRunnables: HashMap<Task, Runnable> = HashMap()
 
+    //variável para saber de foi confimado no dialog
+    var confirmed = false
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(c).inflate(R.layout.task_inflater, parent, false)
         return TaskViewHolder(view)
@@ -27,6 +31,10 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
 
     override fun getItemCount(): Int {
         return tasks.size
+    }
+
+    fun getResp(res:Boolean){
+
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
@@ -39,13 +47,15 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
             holder.finished.isChecked = true
         }
         holder.deleteTask.setOnClickListener {
-            remover(position)
+            val dialog = ConfirmDeleteDialog()
+            dialog.isCancelable =true
+            dialog.show(FragmentActivity().supportFragmentManager,"Dialog")
         }
 
         holder.finished.setOnClickListener {
             val dialog = ConfirmFinishedDialog()
             dialog.isCancelable =true
-            //dialog.show(holder,"Dialog")
+            dialog.show(FragmentActivity().supportFragmentManager,"Dialog")
         }
         /*
         if (itemsPendingRemoval.contains(taskAtual)) {

@@ -10,11 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activitys.AddTaskActivity"
-            android:parentActivityName=".activitys.MainActivity"
+        <activity android:name=".activities.AddTaskActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:label="New Task"/>
 
-        <activity android:name=".activitys.MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

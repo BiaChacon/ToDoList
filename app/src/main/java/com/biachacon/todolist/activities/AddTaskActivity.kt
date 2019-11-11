@@ -1,4 +1,4 @@
-package com.biachacon.todolist.activitys
+package com.biachacon.todolist.activities
 
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
