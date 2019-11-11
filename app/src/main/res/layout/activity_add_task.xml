@@ -7,12 +7,19 @@
     tools:context=".activities.AddTaskActivity"
     android:gravity="center">
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/addTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Task Name"/>
+
+
+    <ImageButton
+        android:id="@+id/datePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:src="@drawable/ic_add"/>
 
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"

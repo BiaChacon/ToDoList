@@ -35,7 +35,7 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
 
 
 
-        if (itemsPendingRemoval.contains(toDoListAtual)) {
+        /*if (itemsPendingRemoval.contains(toDoListAtual)) {
 
             holder.layoutNormal.setVisibility(View.GONE)
             holder.layoutGone.setVisibility(View.VISIBLE)
@@ -58,9 +58,12 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
             holder.layoutNormal.setVisibility(View.VISIBLE)
             holder.layoutGone.setVisibility(View.GONE)
             holder.undoButton.setVisibility(View.GONE)
-            holder.undoButton.setOnClickListener(null)
+            holder.undoButt
 
-        }
+
+            on.setOnClickListener(null)
+
+        }*/
     }
 
 

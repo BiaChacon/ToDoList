@@ -5,6 +5,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,10 @@ import com.biachacon.todolist.dialogs.ConfirmFinishedDialog
 import com.biachacon.todolist.model.Task
 import java.util.*
 
-class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Adapter<TaskViewHolder>() {
+class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Adapter<TaskViewHolder>()
+    ,ConfirmFinishedDialog.NoticeDialogListener,ConfirmDeleteDialog.NoticeDialogListener {
+
+
 
     //private val PENDING_REMOVAL_TIMEOUT:Long = 3000
     //var itemsPendingRemoval = ArrayList<Task>()
@@ -24,6 +28,7 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
 
     //variável para saber de foi confimado no dialog
     var confirmed = false
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(c).inflate(R.layout.task_inflater, parent, false)
         return TaskViewHolder(view)
@@ -33,9 +38,6 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
         return tasks.size
     }
 
-    fun getResp(res:Boolean){
-
-    }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
 
@@ -43,20 +45,29 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
 
         holder.nameTask.text = taskAtual.name
 
-        if (taskAtual.finished){
-            holder.finished.isChecked = true
-        }
-        holder.deleteTask.setOnClickListener {
-            val dialog = ConfirmDeleteDialog()
-            dialog.isCancelable =true
-            dialog.show(FragmentActivity().supportFragmentManager,"Dialog")
+        holder.finished.setOnClickListener {
+            showNoticeDialog()
+            if(confirmed){
+                //remove da lista atual e coloca na lista de finalizadas
+                notifyItemRemoved(position)
+            }
         }
 
-        holder.finished.setOnClickListener {
-            val dialog = ConfirmFinishedDialog()
-            dialog.isCancelable =true
-            dialog.show(FragmentActivity().supportFragmentManager,"Dialog")
+        holder.deleteTask.setOnClickListener {
+            showNoticeDialog()
+            if (confirmed){
+                //deleta a task do banco
+                notifyItemRemoved(position)
+            }
         }
+
+
+
+       /* if (taskAtual.finished){
+            holder.finished.isChecked = true
+        }*/
+
+
         /*
         if (itemsPendingRemoval.contains(taskAtual)) {
 
@@ -97,7 +108,6 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
         }*/
     }
 
-
     fun remover (position: Int){
 
         var task = tasks[position]
@@ -108,7 +118,6 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
         }
 
     }
-
     /*fun removerComTempo(position: Int) {
 
         val task = tasks[position]
@@ -128,7 +137,6 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
         }
 
     }*/
-
     fun mover(fromPosition: Int, toPosition: Int) {
 
         if (fromPosition < toPosition) {
@@ -146,5 +154,25 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
         notifyItemChanged(fromPosition)
 
     }
+    fun showNoticeDialog() {
+        // Create an instance of the dialog fragment and show it
+        val dialog = ConfirmFinishedDialog()
+        dialog.show(FragmentActivity().supportFragmentManager, "FinishedDialog")
+    }
 
+    override fun onDialogPositiveClick(dialog: DialogFragment) {
+        confirmed =true
+    }
+
+    override fun onDialogNegativeClick(dialog: DialogFragment) {
+        confirmed = false
+    }
+
+    override fun onDialogPositiveClickD(dialog: DialogFragment) {
+        confirmed = true
+    }
+
+    override fun onDialogNegativeClickD(dialog: DialogFragment) {
+        confirmed = false
+    }
 }
