@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.biachacon.todolist.R
@@ -16,8 +17,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    val CODE = 99
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //fab.setOnClickListener {}
+
 
         setContentView(R.layout.activity_main)
         if(getSupportActionBar() != null)
@@ -98,6 +104,27 @@ class MainActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            CODE ->{
+                when(resultCode){
+                    Activity.RESULT_OK->{
+                        Toast.makeText(this, "SAVE", Toast.LENGTH_SHORT).show()
+                    }
+                    Activity.RESULT_CANCELED->{
+                        Toast.makeText(this, "CANCELED" , Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+    }
+
+    fun addTask(view: View) {
+        val intent = Intent(this, AddTaskActivity::class.java)
+        startActivityForResult(intent, CODE)
     }
 
 }

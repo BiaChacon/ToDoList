@@ -16,29 +16,7 @@ class Fragment3 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-/*
-       fab3.setOnClickListener {
-           val intent = Intent(activity, AddTaskActivity::class.java)
-           startActivityForResult(intent, CODE)
-       }
-*/
         return inflater.inflate(R.layout.layout_fragment3, container, false)
     }
-/*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode){
-            CODE ->{
-                when(resultCode){
-                    Activity.RESULT_OK->{
-                        Toast.makeText(activity, "SAVE", Toast.LENGTH_SHORT).show()
-                    }
-                    Activity.RESULT_CANCELED->{
-                        Toast.makeText(activity, "CANCELED" , Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-    }
-*/
+
 }
