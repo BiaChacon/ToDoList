@@ -1,92 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_marginTop="5sp">
+
+    <CheckBox
+        android:id="@+id/checkboxTask"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="10sp"/>
+
 
     <LinearLayout
-        android:id="@+id/layout_normal"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contextClickable="true"
+        android:gravity="left"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/nameTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5sp"
-            android:layout_weight="0.07"
-            android:gravity="center">
+            android:text="Name Task"
+            android:textSize="15sp"
+            android:textColor="@color/black"/>
 
-            <CheckBox
-                android:id="@+id/checkboxTask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/dateTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="left"
-            android:layout_marginHorizontal="5sp"
-            android:contextClickable="true"
-            android:layout_weight="0.86">
+            android:text="date task"
+            android:textSize="12sp"
+            android:textColor="@color/colorPrimary" />
 
-            <TextView
-                android:id="@+id/nameTask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name Task"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/dateTask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:text="date task"/>
-
-            <TextView
-                android:id="@+id/nameToDoList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:text="Name List"/>
-
-        </LinearLayout>
-        <LinearLayout
+        <TextView
+            android:id="@+id/nameToDoList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5sp"
-            android:layout_weight="0.07"
-            android:gravity="center">
-
-            <ImageButton
-                android:id="@+id/deleteTask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_delete"
-                android:backgroundTint="@color/colorAccent"/>
-
-        </LinearLayout>
-
+            android:text="Name List"
+            android:textSize="12sp"
+            android:textColor="@color/grey"/>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_marginRight="10sp"
+        android:orientation="vertical">
 
+        <ImageButton
+            android:id="@+id/deleteTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:backgroundTint="@color/write"
+            android:src="@drawable/ic_delete" />
+    </LinearLayout>
 
-    <View
-        android:layout_width="380dp"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_gravity="center_horizontal|bottom"/>
-
-</FrameLayout>
+</LinearLayout>

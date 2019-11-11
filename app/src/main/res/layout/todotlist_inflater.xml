@@ -1,78 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/layout_normal2"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/nameToDoList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="Name List"
-            android:layout_marginTop="10sp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textTask"
+                android:id="@+id/nameToDoList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:text="Tasks:"
-                android:textSize="12sp"
-                android:textStyle="bold"/>
+                android:layout_marginTop="10sp"
+                android:text="Name List"
+                android:textSize="18sp"
+                android:textColor="@color/black"/>
 
-            <TextView
-                android:id="@+id/qtdTasks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_marginLeft="5sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textTask"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="Tasks:"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorPrimary"/>
+
+                <TextView
+                    android:id="@+id/qtdTasks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5sp"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorPrimary"/>
+            </LinearLayout>
+
         </LinearLayout>
+
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:background="@android:color/holo_red_dark"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:visibility="gone"
-        android:gravity="right|center_vertical"
-        android:id="@+id/layout_gone2">
+        android:layout_height="match_parent"
+        android:gravity="right"
+        android:layout_marginRight="10sp">
 
-        <Button
-            android:id="@+id/undo_button2"
+        <ImageButton
+            android:id="@+id/editBt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Desfazer"
-            android:textAllCaps="true"
-            android:visibility="gone"
-            android:textColor="@android:color/white"
-            style="@style/Base.Widget.AppCompat.Button.Borderless"/>
+            android:layout_gravity="center"
+            android:background="@color/write"
+            android:src="@drawable/ic_edit"
+            android:layout_marginRight="10sp"/>
+
+        <ImageButton
+            android:id="@+id/deleteBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/write"
+            android:src="@drawable/ic_delete" />
     </LinearLayout>
 
-    <View
-        android:layout_width="380dp"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_gravity="center_horizontal|bottom"/>
-
-</FrameLayout>
+</LinearLayout>
