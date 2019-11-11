@@ -5,18 +5,20 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.biachacon.todolist.R
+import com.biachacon.todolist.dialogs.ConfirmFinishedDialog
 import com.biachacon.todolist.model.Task
 import java.util.*
 
 class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Adapter<TaskViewHolder>() {
 
-    private val PENDING_REMOVAL_TIMEOUT:Long = 3000
-    var itemsPendingRemoval = ArrayList<Task>()
+    //private val PENDING_REMOVAL_TIMEOUT:Long = 3000
+    //var itemsPendingRemoval = ArrayList<Task>()
 
-    private val handler = Handler()
-    var pendingRunnables: HashMap<Task, Runnable> = HashMap()
+    //private val handler = Handler()
+    //var pendingRunnables: HashMap<Task, Runnable> = HashMap()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(c).inflate(R.layout.task_inflater, parent, false)
@@ -33,11 +35,19 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
 
         holder.nameTask.text = taskAtual.name
 
-
         if (taskAtual.finished){
-            holder.nameTask.isChecked = true
+            holder.finished.isChecked = true
+        }
+        holder.deleteTask.setOnClickListener {
+            remover(position)
         }
 
+        holder.finished.setOnClickListener {
+            val dialog = ConfirmFinishedDialog()
+            dialog.isCancelable =true
+            //dialog.show(holder,"Dialog")
+        }
+        /*
         if (itemsPendingRemoval.contains(taskAtual)) {
 
             holder.layoutNormal.setVisibility(View.GONE)
@@ -74,7 +84,7 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
             }
 
 
-        }
+        }*/
     }
 
 
@@ -89,7 +99,7 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
 
     }
 
-    fun removerComTempo(position: Int) {
+    /*fun removerComTempo(position: Int) {
 
         val task = tasks[position]
 
@@ -107,7 +117,7 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
 
         }
 
-    }
+    }*/
 
     fun mover(fromPosition: Int, toPosition: Int) {
 

@@ -1,29 +1,25 @@
 package com.biachacon.todolist.recycler
 
 import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.biachacon.todolist.R
 
 class TaskViewHolder(v : View) : RecyclerView.ViewHolder(v) {
 
-    val nameTask: CheckBox
+    val finished: CheckBox
+    val nameTask: TextView
     val dateTask: TextView
     val nameToDoList: TextView
-
     val layoutNormal: LinearLayout
-    val layoutGone: LinearLayout
-    val undoButton: Button
+    val deleteTask: ImageButton
 
     init {
         nameTask = v.findViewById(R.id.nameTask)
         dateTask = v.findViewById(R.id.dateTask)
         nameToDoList = v.findViewById(R.id.nameToDoList)
         layoutNormal = v.findViewById(R.id.layout_normal)
-        layoutGone = v.findViewById(R.id.layout_gone)
-        undoButton = v.findViewById(R.id.undo_button)
+        deleteTask = v.findViewById(R.id.deleteTask)
+        finished = v.findViewById(R.id.checkboxTask)
     }
 }

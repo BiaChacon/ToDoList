@@ -2,7 +2,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,55 +12,76 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-
-        <CheckBox
-            android:id="@+id/nameTask"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name Task"
-            android:textSize="15sp"/>
+            android:layout_marginHorizontal="5sp"
+            android:layout_weight="0.07"
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/dateTask"
+            <CheckBox
+                android:id="@+id/checkboxTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:text="date task"/>
+            android:orientation="vertical"
+            android:gravity="left"
+            android:layout_marginHorizontal="5sp"
+            android:contextClickable="true"
+            android:layout_weight="0.86">
 
-        <TextView
-            android:id="@+id/nameToDoList"
+            <TextView
+                android:id="@+id/nameTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name Task"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/dateTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:text="date task"/>
+
+            <TextView
+                android:id="@+id/nameToDoList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:text="Name List"/>
+
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:text="Name List"/>
+            android:layout_marginHorizontal="5sp"
+            android:layout_weight="0.07"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/deleteTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete"
+                android:backgroundTint="@color/colorAccent"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:background="@android:color/holo_red_dark"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:visibility="gone"
-        android:gravity="right|center_vertical"
-        android:id="@+id/layout_gone">
 
-        <Button
-            android:id="@+id/undo_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Desfazer"
-            android:textAllCaps="true"
-            android:visibility="gone"
-            android:textColor="@android:color/white"
-            style="@style/Base.Widget.AppCompat.Button.Borderless"/>
-    </LinearLayout>
 
     <View
         android:layout_width="380dp"
