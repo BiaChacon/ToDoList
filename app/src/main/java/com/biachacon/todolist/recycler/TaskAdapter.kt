@@ -44,6 +44,9 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
         val taskAtual = tasks[position]
 
         holder.nameTask.text = taskAtual.name
+        holder.dateTask.text = taskAtual.date.toString()
+        holder.nameList.text = taskAtual.name
+
 
         holder.finished.setOnClickListener {
             showNoticeDialog()
@@ -108,52 +111,7 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
         }*/
     }
 
-    fun remover (position: Int){
 
-        var task = tasks[position]
-
-        if (tasks.contains(task)){
-            tasks.removeAt(position)
-            notifyItemRemoved(position)
-        }
-
-    }
-    /*fun removerComTempo(position: Int) {
-
-        val task = tasks[position]
-
-        if (!itemsPendingRemoval.contains(task)) {
-
-            itemsPendingRemoval.add(task)
-            notifyItemChanged(position)
-
-            var pendingRemovalRunnable = Runnable {
-                remover(position)
-            }
-
-            handler.postDelayed(pendingRemovalRunnable, PENDING_REMOVAL_TIMEOUT)
-            pendingRunnables[task] = pendingRemovalRunnable
-
-        }
-
-    }*/
-    fun mover(fromPosition: Int, toPosition: Int) {
-
-        if (fromPosition < toPosition) {
-            for (i in fromPosition until toPosition) {
-                Collections.swap(tasks, i, i + 1)
-            }
-        } else {
-            for (i in fromPosition downTo toPosition + 1) {
-                Collections.swap(tasks, i, i - 1)
-            }
-        }
-
-        notifyItemMoved(fromPosition, toPosition)
-        notifyItemChanged(toPosition)
-        notifyItemChanged(fromPosition)
-
-    }
     fun showNoticeDialog() {
         // Create an instance of the dialog fragment and show it
         val dialog = ConfirmFinishedDialog()
@@ -175,4 +133,5 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
     override fun onDialogNegativeClickD(dialog: DialogFragment) {
         confirmed = false
     }
+
 }

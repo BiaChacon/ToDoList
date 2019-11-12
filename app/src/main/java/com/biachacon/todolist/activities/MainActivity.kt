@@ -8,10 +8,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.room.Room
 import androidx.viewpager.widget.ViewPager
 import com.biachacon.todolist.R
 import com.biachacon.todolist.adapaters.FixedTabsPageAdapter
+import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.fragments.AddListDialogFragment
+import com.biachacon.todolist.model.ToDoList
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -19,13 +22,25 @@ class MainActivity : AppCompatActivity() {
 
     val CODE = 99
 
+    val db:AppDatabase by lazy {
+        Room.databaseBuilder(
+            this, AppDatabase::class.java,
+            "to-do-list")
+            .allowMainThreadQueries()
+            .build()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        //fab.setOnClickListener {}
-
-
         setContentView(R.layout.activity_main)
+
+        var l1 = ToDoList("test1")
+        var l2 = ToDoList("test2")
+        var l3 = ToDoList("test3")
+        db.toDoListDao().insert(l1)
+        db.toDoListDao().insert(l2)
+        db.toDoListDao().insert(l3)
+
         if(getSupportActionBar() != null)
         {
             getSupportActionBar()!!.setElevation(0.0F)

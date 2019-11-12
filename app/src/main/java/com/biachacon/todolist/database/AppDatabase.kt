@@ -6,7 +6,10 @@ import com.biachacon.todolist.dao.TaskDao
 import com.biachacon.todolist.dao.ToDoListDao
 import com.biachacon.todolist.model.Task
 
-@Database(entities = [Task::class,List::class], version = 1)
+@Database(
+    entities = [Task::class,List::class],
+    version = 1
+)
 abstract class AppDatabase : RoomDatabase(){
     abstract fun taskDao(): TaskDao
     abstract fun toDoListDao(): ToDoListDao
