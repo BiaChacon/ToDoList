@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     val CODE = 99
-//
+
 //    val db:AppDatabase by lazy {
 //        Room.databaseBuilder(
 //            this, AppDatabase::class.java,
@@ -100,16 +100,16 @@ class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here.
         val id = item.getItemId()
 
-        if (id == R.id.action_one) {
+        if (id == R.id.search) {
             Toast.makeText(this, "Search", Toast.LENGTH_LONG).show()
             return true
         }
-        if (id == R.id.action_two) {
+        if (id == R.id.newList) {
             var dialog = AddListDialogFragment()
             dialog.show(supportFragmentManager, "Dialog")
             return true
         }
-        if (id == R.id.action_three) {
+        if (id == R.id.settings) {
             Toast.makeText(this, "Settings", Toast.LENGTH_LONG).show()
             return true
         }
