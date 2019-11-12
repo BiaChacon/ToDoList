@@ -43,5 +43,4 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.2.0-rc01"
     testImplementation "androidx.room:room-testing:2.2.0-rc01"
 
-    kapt 'android.arch.persistence.room:compiler:2.2.0-rc01'
 }

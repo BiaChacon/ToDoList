@@ -8,38 +8,35 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.room.Room
 import androidx.viewpager.widget.ViewPager
 import com.biachacon.todolist.R
 import com.biachacon.todolist.adapaters.FixedTabsPageAdapter
-import com.biachacon.todolist.database.AppDatabase
-import com.biachacon.todolist.fragments.AddListDialogFragment
-import com.biachacon.todolist.model.ToDoList
+import com.biachacon.todolist.dialogs.AddListDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
 
     val CODE = 99
-
-    val db:AppDatabase by lazy {
-        Room.databaseBuilder(
-            this, AppDatabase::class.java,
-            "to-do-list")
-            .allowMainThreadQueries()
-            .build()
-    }
+//
+//    val db:AppDatabase by lazy {
+//        Room.databaseBuilder(
+//            this, AppDatabase::class.java,
+//            "to-do-list")
+//            .allowMainThreadQueries()
+//            .build()
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        var l1 = ToDoList("test1")
-        var l2 = ToDoList("test2")
-        var l3 = ToDoList("test3")
-        db.toDoListDao().insert(l1)
-        db.toDoListDao().insert(l2)
-        db.toDoListDao().insert(l3)
+//
+//        var l1 = ToDoList("test1")
+//        var l2 = ToDoList("test2")
+//        var l3 = ToDoList("test3")
+//        db.toDoListDao().insert(l1)
+//        db.toDoListDao().insert(l2)
+//        db.toDoListDao().insert(l3)
 
         if(getSupportActionBar() != null)
         {
@@ -127,10 +124,10 @@ class MainActivity : AppCompatActivity() {
             CODE ->{
                 when(resultCode){
                     Activity.RESULT_OK->{
-                        Toast.makeText(this, "SAVE", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "save", Toast.LENGTH_SHORT).show()
                     }
                     Activity.RESULT_CANCELED->{
-                        Toast.makeText(this, "CANCELED" , Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "canceled" , Toast.LENGTH_SHORT).show()
                     }
                 }
             }
