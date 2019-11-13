@@ -21,9 +21,6 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.layout_fragment2.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class Fragment2 : Fragment() {
 
     var v:View? = null
@@ -42,10 +39,9 @@ class Fragment2 : Fragment() {
         return v
     }
 
-
-
     override fun onResume() {
         super.onResume()
+
         var toDoList:MutableList<ToDoList> = db.toDoListDao().list()
 
         var adapter = activity?.let { ToDoListAdapter(it,toDoList ) }
@@ -59,31 +55,6 @@ class Fragment2 : Fragment() {
 
         rv.layoutManager = layout
 
-        rv.addOnItemTouchListener(
-            MyRecyclerViewClickListener(
-               //????????????
-                requireContext(),
-                recyclerview2,
-                object : MyRecyclerViewClickListener.OnItemClickListener {
-                    override fun onItemClick(view: View, position: Int) {
-                        Toast.makeText(activity, "Clique simples", Toast.LENGTH_SHORT).show()
-                    }
-
-                    override fun onItemLongClick(view: View, position: Int) {
-                        val removida = toDoList[position]
-                        toDoList.remove(removida)
-                        rv.adapter!!.notifyItemRemoved(position)
-                        Toast.makeText(activity, "Clique longo", Toast.LENGTH_SHORT).show()
-                        val snack = Snackbar.make(
-                            rv.parent as View,"Removido", Snackbar.LENGTH_LONG )
-                            .setAction("Cancelar") {
-                                toDoList.add(position, removida)
-                                rv.adapter!!.notifyItemInserted(position)
-                            }
-                        snack.show()
-                    }
-                })
-        )
     }
 
 }
