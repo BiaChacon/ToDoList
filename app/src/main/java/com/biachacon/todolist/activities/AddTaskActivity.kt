@@ -50,6 +50,14 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
             }, year, month, day)
             dpd.show()
         }
+        dateChoice.setKeyListener(null);
+        dateChoice.setOnClickListener {
+            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view, mYear, mMonth, mDay ->
+                dateChoice.setText(""+ mDay+"/"+mMonth+"/"+mYear)
+                date = ""+mDay+"/"+mMonth+"/"+mYear
+            }, year, month, day)
+            dpd.show()
+        }
 
 
         list = Array(db.toDoListDao().listAll().size) { null }
@@ -97,6 +105,8 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
     fun saveTask(view: View) {
         var toDoList:ToDoList = db.toDoListDao().findByName(l)
+        toDoList.qtd_taks++
+        db.toDoListDao().update(toDoList)
         db.taskDao().insert(Task(
             addTask.text.toString(),
             date,
