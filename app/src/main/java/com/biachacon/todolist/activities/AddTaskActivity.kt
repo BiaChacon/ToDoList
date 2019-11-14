@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import com.biachacon.todolist.R
 import com.biachacon.todolist.dialogs.AddListDialogFragment
 import kotlinx.android.synthetic.main.activity_add_task.*
+import kotlinx.android.synthetic.main.activity_add_task.view.*
 import java.util.*
 
 class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
@@ -32,7 +33,8 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
         datePicker.setOnClickListener{
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view, mYear, mMonth, mDay ->
-                dateChoice.setText(""+ mDay+"/"+mMonth+"/"+mYear)
+               // dateChoice.setText(""+ mDay+"/"+mMonth+"/"+mYear)
+
             }, year, month, day)
             dpd.show()
         }

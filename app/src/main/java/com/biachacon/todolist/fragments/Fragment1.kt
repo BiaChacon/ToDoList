@@ -29,7 +29,7 @@ class Fragment1 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        v =  inflater.inflate(R.layout.layout_fragment2, container, false)
+        v =  inflater.inflate(R.layout.layout_fragment1, container, false)
         return v
     }
 
@@ -40,7 +40,7 @@ class Fragment1 : Fragment() {
 
         var adapter = activity?.let { TaskAdapter(it,tasks) }
 
-        var  rv: RecyclerView = v!!.findViewById(R.id.recyclerview2)
+        var  rv: RecyclerView = v!!.findViewById(R.id.recyclerview1)
 
         rv.adapter = adapter
 
@@ -48,7 +48,7 @@ class Fragment1 : Fragment() {
 
         rv.layoutManager = layout
 
-        recyclerview1.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        /*recyclerview1.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -65,7 +65,7 @@ class Fragment1 : Fragment() {
                     }
                 }
             }
-        })
+        })*/
 
     }
 
