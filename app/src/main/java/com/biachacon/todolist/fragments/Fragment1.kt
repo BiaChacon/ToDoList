@@ -1,7 +1,6 @@
 package com.biachacon.todolist.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,7 @@ import androidx.room.Room
 import com.biachacon.todolist.R
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.model.Task
-import com.biachacon.todolist.model.ToDoList
 import com.biachacon.todolist.recycler.TaskAdapter
-import com.biachacon.todolist.recycler.ToDoListAdapter
 
 class Fragment1 : Fragment() {
 
@@ -38,9 +35,8 @@ class Fragment1 : Fragment() {
         super.onResume()
 
         var tasks:MutableList<Task> = db.taskDao().findByNotFinished()
-        Log.i("not", tasks.toString())
-        var adapter = activity?.let { TaskAdapter(it,tasks) }
 
+        var adapter = activity?.let { TaskAdapter(it,tasks) }
 
         var  rv: RecyclerView = v!!.findViewById(R.id.recyclerview2)
 

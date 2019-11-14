@@ -38,7 +38,6 @@ class Fragment3 : Fragment() {
 
         var adapter = activity?.let { TaskAdapter(it,tasks) }
 
-
         var  rv: RecyclerView = v!!.findViewById(R.id.recyclerview3)
 
         rv.adapter = adapter

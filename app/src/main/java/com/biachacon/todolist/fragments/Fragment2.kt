@@ -5,21 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.biachacon.todolist.R
-import com.biachacon.todolist.activities.MainActivity
 import com.biachacon.todolist.database.AppDatabase
-import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.model.ToDoList
-import com.biachacon.todolist.recycler.MyRecyclerViewClickListener
-import com.biachacon.todolist.recycler.TaskAdapter
 import com.biachacon.todolist.recycler.ToDoListAdapter
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.layout_fragment2.*
 
 class Fragment2 : Fragment() {
 
@@ -45,7 +37,6 @@ class Fragment2 : Fragment() {
         var toDoList:MutableList<ToDoList> = db.toDoListDao().list()
 
         var adapter = activity?.let { ToDoListAdapter(it,toDoList ) }
-
 
         var  rv:RecyclerView = v!!.findViewById(R.id.recyclerview2)
 
