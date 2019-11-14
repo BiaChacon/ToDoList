@@ -1,30 +1,18 @@
 package com.biachacon.todolist.recycler
 
 import android.content.Context
-import android.os.Handler
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.biachacon.todolist.R
 import com.biachacon.todolist.dialogs.ConfirmDeleteDialog
 import com.biachacon.todolist.dialogs.ConfirmFinishedDialog
 import com.biachacon.todolist.model.Task
-import java.util.*
 
 class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Adapter<TaskViewHolder>()
     ,ConfirmFinishedDialog.NoticeDialogListener,ConfirmDeleteDialog.NoticeDialogListener {
-
-
-
-    //private val PENDING_REMOVAL_TIMEOUT:Long = 3000
-    //var itemsPendingRemoval = ArrayList<Task>()
-
-    //private val handler = Handler()
-    //var pendingRunnables: HashMap<Task, Runnable> = HashMap()
 
     //variável para saber de foi confimado no dialog
     var confirmed = false
@@ -44,9 +32,10 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
         val taskAtual = tasks[position]
 
         holder.nameTask.text = taskAtual.name
-        holder.dateTask.text = taskAtual.date.toString()
-        holder.nameList.text = taskAtual.name
-
+        holder.dateTask.text = taskAtual.date
+        //var t:ToDoList
+        //t = ToDoListDao().findById(taskAtual.id_ToDoList)
+        holder.nameList.text = taskAtual.id_ToDoList.toString()
 
         holder.finished.setOnClickListener {
             showNoticeDialog()
@@ -70,45 +59,6 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
             holder.finished.isChecked = true
         }*/
 
-
-        /*
-        if (itemsPendingRemoval.contains(taskAtual)) {
-
-            holder.layoutNormal.setVisibility(View.GONE)
-            holder.layoutGone.setVisibility(View.VISIBLE)
-            holder.undoButton.setVisibility(View.VISIBLE)
-
-            holder.undoButton.setOnClickListener {
-                val pendingRemovalRunnable = pendingRunnables[taskAtual]
-                pendingRunnables.remove(taskAtual)
-                if (pendingRemovalRunnable != null) {
-                    handler.removeCallbacks(pendingRemovalRunnable)
-                }
-                itemsPendingRemoval.remove(taskAtual)
-                notifyItemChanged(tasks.indexOf(taskAtual))
-            }
-
-        }else {
-
-            holder.nameTask.setText(taskAtual.name)
-
-            holder.layoutNormal.setVisibility(View.VISIBLE)
-            holder.layoutGone.setVisibility(View.GONE)
-            holder.undoButton.setVisibility(View.GONE)
-            holder.undoButton.setOnClickListener(null)
-
-            if (taskAtual.finished){
-                holder.nameTask.isChecked = true
-            }
-            //mudar no banco o finished
-            if(holder.nameTask.isChecked){
-                //holder.nameTask.isChecked = false
-            }else{
-                //holder.nameTask.isChecked = true
-            }
-
-
-        }*/
     }
 
 
