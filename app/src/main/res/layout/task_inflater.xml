@@ -1,66 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5sp"
     android:background="@color/write">
 
-    <CheckBox
-        android:id="@+id/checkboxTask"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginLeft="5sp"
-        android:layout_marginRight="10sp"/>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contextClickable="true"
-        android:gravity="left"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/nameTask"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name Task"
-            android:textSize="15sp"
-            android:textColor="@color/black"/>
-
-        <TextView
-            android:id="@+id/dateTask"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="date task"
-            android:textSize="12sp"
-            android:textColor="@color/colorPrimary" />
-
-        <TextView
-            android:id="@+id/nameListT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name List"
-            android:textSize="12sp"
-            android:textColor="@color/grey"/>
-
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_marginRight="10sp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_marginBottom="10sp"
+        android:layout_marginTop="5sp">
 
-        <ImageButton
-            android:id="@+id/deleteTask"
+        <CheckBox
+            android:id="@+id/checkboxTask"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="10sp" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:backgroundTint="@color/write"
-            android:src="@drawable/ic_delete" />
+            android:contextClickable="true"
+            android:gravity="left"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nameTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name Task"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/dateTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="date task"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/nameListT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name List"
+                android:textColor="@color/grey"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10sp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/deleteTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:backgroundTint="@color/write"
+                android:src="@drawable/ic_delete" />
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+
+    <View
+        android:layout_width="380dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_gravity="center_horizontal|bottom"/>
+
+</FrameLayout>

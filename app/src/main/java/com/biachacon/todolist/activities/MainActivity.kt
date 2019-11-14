@@ -15,6 +15,7 @@ import com.biachacon.todolist.R
 import com.biachacon.todolist.adapaters.FixedTabsPageAdapter
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.dialogs.AddListDialogFragment
+import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.model.ToDoList
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -42,6 +43,15 @@ class MainActivity : AppCompatActivity() {
 //        db.toDoListDao().insert(l2)
 //        db.toDoListDao().insert(l3)
 //        Log.i("teste", "${db.toDoListDao().listAll().size}")
+//
+//        var t1 = Task("Tarefa 1", "22/12/2019", false,1)
+//        var t2 = Task("Tarefa 2","22/12/2019", false,1)
+//        var t3 = Task("Tarefa 3","22/12/2019", false,1)
+//        db.taskDao().insert(t1)
+//        db.taskDao().insert(t2)
+//        db.taskDao().insert(t3)
+//        Log.i("teste2", "${db.taskDao().listAll().size}")
+//
 
         if(getSupportActionBar() != null)
         {

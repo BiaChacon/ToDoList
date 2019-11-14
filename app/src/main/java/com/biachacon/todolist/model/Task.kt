@@ -8,7 +8,7 @@ data class Task (
     var name:String,
     var date: String,
     var finished: Boolean = false,
-    var id_ToDoList:String
+    var id_ToDoList:Int
 ){
     @PrimaryKey(autoGenerate = true)
     var id:Int = 0
