@@ -12,6 +12,8 @@ import com.biachacon.todolist.R
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.recycler.TaskAdapter
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_fragment1.*
 
 class Fragment1 : Fragment() {
 
@@ -45,6 +47,25 @@ class Fragment1 : Fragment() {
         val layout = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
         rv.layoutManager = layout
+
+        recyclerview1.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val positionView = (recyclerview1.getLayoutManager() as LinearLayoutManager).findFirstVisibleItemPosition()
+
+                if (positionView > 0) {
+                    if(!fab.isShown) {
+                        fab.show()
+                    }
+                } else  {
+                    if(fab.isShown) {
+                        fab.hide()
+                    }
+                }
+            }
+        })
 
     }
 
