@@ -39,11 +39,11 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:29.0.1'
     implementation 'com.android.support:cardview-v7:29.0.1'
 
-    implementation 'com.vicmikhailau:MaskedEditText:3.0.1'
-
     implementation "androidx.room:room-runtime:2.2.0-rc01"
     annotationProcessor "androidx.room:room-compiler:2.2.0-rc01"
     testImplementation "androidx.room:room-testing:2.2.0-rc01"
 
     kapt 'android.arch.persistence.room:compiler:2.2.0-rc01'
+
+    implementation 'com.vicmikhailau:MaskedEditText:3.0.1'
 }

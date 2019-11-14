@@ -32,7 +32,7 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
         datePicker.setOnClickListener{
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view, mYear, mMonth, mDay ->
-                //dateChoice.setText(""+ mDay+"/"+mMonth+"/"+mYear)
+                dateChoice.setText(""+ mDay+"/"+mMonth+"/"+mYear)
             }, year, month, day)
             dpd.show()
         }
