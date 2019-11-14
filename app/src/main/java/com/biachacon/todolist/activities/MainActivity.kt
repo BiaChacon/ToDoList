@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -15,43 +14,15 @@ import com.biachacon.todolist.R
 import com.biachacon.todolist.adapaters.FixedTabsPageAdapter
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.dialogs.AddListDialogFragment
-import com.biachacon.todolist.model.Task
-import com.biachacon.todolist.model.ToDoList
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 class MainActivity : AppCompatActivity() {
 
     val CODE = 99
 
-    val db: AppDatabase by lazy {
-        Room.databaseBuilder(
-            this, AppDatabase::class.java,
-            "to-do-list")
-            .allowMainThreadQueries()
-            .build()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-//        var l1 = ToDoList("test1")
-//        var l2 = ToDoList("test2")
-//        var l3 = ToDoList("test3")
-//        db.toDoListDao().insert(l1)
-//        db.toDoListDao().insert(l2)
-//        db.toDoListDao().insert(l3)
-//        Log.i("teste", "${db.toDoListDao().listAll().size}")
-//
-//        var t1 = Task("Tarefa 1", "22/12/2019", false,1)
-//        var t2 = Task("Tarefa 2","22/12/2019", false,1)
-//        var t3 = Task("Tarefa 3","22/12/2019", false,1)
-//        db.taskDao().insert(t1)
-//        db.taskDao().insert(t2)
-//        db.taskDao().insert(t3)
-//        Log.i("teste2", "${db.taskDao().listAll().size}")
-//
 
         if(getSupportActionBar() != null)
         {
@@ -106,13 +77,12 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here.
+
         val id = item.getItemId()
 
         if (id == R.id.search) {

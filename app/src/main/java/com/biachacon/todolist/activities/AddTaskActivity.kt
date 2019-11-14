@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,7 +16,6 @@ import com.biachacon.todolist.dialogs.AddListDialogFragment
 import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.model.ToDoList
 import kotlinx.android.synthetic.main.activity_add_task.*
-import kotlinx.android.synthetic.main.activity_add_task.view.*
 import java.util.*
 
 class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
