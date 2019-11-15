@@ -1,8 +1,11 @@
 package com.biachacon.todolist.recycler
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +23,7 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
 
     //variável para saber de foi confimado no dialog
     var confirmed = false
-
+    var stringDialog: String = ""
     val db: AppDatabase by lazy {
         Room.databaseBuilder(c, AppDatabase::class.java, "to-do-list")
             .allowMainThreadQueries()
@@ -47,26 +50,75 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
 
         if(taskAtual.finished){
             holder.finished.isChecked = true
+            stringDialog = "Desfazer"
+        }else{
+            stringDialog = "Finalizar"
         }
 
         holder.finished.setOnClickListener {
-            if(taskAtual.finished){
-                taskAtual.finished = false
-                tasks.remove(taskAtual)
-                notifyItemRemoved(position)
-                db.taskDao().update(taskAtual)
-            }else{
-                taskAtual.finished = true
-                tasks.remove(taskAtual)
-                notifyItemRemoved(position)
-                db.taskDao().update(taskAtual)
-            }
+            var alert= AlertDialog.Builder(c)
+            alert.setMessage(stringDialog + " Tarefa?")
+            alert.setPositiveButton("SIM",
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    if(taskAtual.finished){
+                        taskAtual.finished = false
+                        tasks.remove(taskAtual)
+                        notifyItemRemoved(position)
+                        db.taskDao().update(taskAtual)
+                        Toast.makeText(c,"Desfeita",Toast.LENGTH_SHORT).show()
+
+                    }else{
+                        taskAtual.finished = true
+                        tasks.remove(taskAtual)
+                        notifyItemRemoved(position)
+                        db.taskDao().update(taskAtual)
+                        Toast.makeText(c,"Finalizada",Toast.LENGTH_SHORT).show()
+
+                    }
+                })
+            alert.setNegativeButton("NÃO",
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    Toast.makeText(c,"Cancelado",Toast.LENGTH_SHORT).show()
+                    holder.finished.isChecked = stringDialog == "Desfazer"
+                })
+
+//            if(taskAtual.finished){
+//                taskAtual.finished = false
+//                tasks.remove(taskAtual)
+//                notifyItemRemoved(position)
+//                db.taskDao().update(taskAtual)
+//            }else{
+//                taskAtual.finished = true
+//                tasks.remove(taskAtual)
+//                notifyItemRemoved(position)
+//                db.taskDao().update(taskAtual)
+//            }
+            var dialog = alert.create()
+            dialog.show()
         }
 
         holder.deleteTask.setOnClickListener {
-            tasks.remove(taskAtual)
-            notifyItemRemoved(position)
-            db.taskDao().delete(taskAtual)
+
+            var alert= AlertDialog.Builder(c)
+            alert.setMessage("Deletar Permanentemente?")
+            alert.setPositiveButton("SIM",
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    tasks.remove(taskAtual)
+                    notifyItemRemoved(position)
+                    db.taskDao().delete(taskAtual)
+                    Toast.makeText(c,"Deletada",Toast.LENGTH_SHORT).show()
+
+                })
+            alert.setNegativeButton("NÃO",
+                DialogInterface.OnClickListener { dialogInterface, i ->
+                    Toast.makeText(c,"Cancelado",Toast.LENGTH_SHORT).show()
+                })
+
+//            tasks.remove(taskAtual)
+//            notifyItemRemoved(position)
+//            db.taskDao().delete(taskAtual)
+            var dialog = alert.create()
+            dialog.show()
         }
 
 
