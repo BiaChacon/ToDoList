@@ -33,4 +33,7 @@ interface TaskDao {
     @Query("SELECT * FROM task WHERE finished = 0")
     fun findByNotFinished(): MutableList<Task>
 
+    @Query("SELECT * FROM task WHERE id_ToDoList = :id")
+    fun findByToDoList(id: Int): MutableList<Task>
+
 }

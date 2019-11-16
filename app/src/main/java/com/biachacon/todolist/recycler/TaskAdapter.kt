@@ -6,15 +6,10 @@ import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.biachacon.todolist.R
-import com.biachacon.todolist.dao.ToDoListDao
 import com.biachacon.todolist.database.AppDatabase
-import com.biachacon.todolist.dialogs.ConfirmDeleteDialog
-import com.biachacon.todolist.dialogs.ConfirmFinishedDialog
 import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.model.ToDoList
 
@@ -24,13 +19,14 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
     //variável para saber de foi confimado no dialog
     var confirmed = false
     var stringDialog: String = ""
+
     val db: AppDatabase by lazy {
         Room.databaseBuilder(c, AppDatabase::class.java, "to-do-list")
             .allowMainThreadQueries()
             .build()
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(c).inflate(R.layout.task_inflater, parent, false)
         return TaskViewHolder(view)
     }
@@ -38,7 +34,6 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
     override fun getItemCount(): Int {
         return tasks.size
     }
-
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
 
@@ -103,9 +98,16 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
             alert.setMessage("Deletar Permanentemente?")
             alert.setPositiveButton("SIM",
                 DialogInterface.OnClickListener { dialogInterface, i ->
+
                     tasks.remove(taskAtual)
                     notifyItemRemoved(position)
+
+                    var toDoList:ToDoList = db.toDoListDao().findById(taskAtual.id_ToDoList.toLong())
+                    toDoList.qtd_taks--
+                    db.toDoListDao().update(toDoList)
+
                     db.taskDao().delete(taskAtual)
+
                     Toast.makeText(c,"Deletada",Toast.LENGTH_SHORT).show()
 
                 })
@@ -145,8 +147,6 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
 
     }
 
-
-//
 //    fun showNoticeDialog() {
 //        // Create an instance of the dialog fragment and show it
 //        val dialog = ConfirmFinishedDialog()

@@ -42,6 +42,14 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
         holder.qtdTasks.text = toDoListAtual.qtd_taks.toString()
         holder.nameToDoList.text = toDoListAtual.name
 
+        if (position <= 0){
+            holder.deleteBt.visibility = View.INVISIBLE
+            holder.editBt.visibility = View.INVISIBLE
+        }else{
+            holder.deleteBt.visibility = View.VISIBLE
+            holder.editBt.visibility = View.VISIBLE
+        }
+
         // n entendo o que de não estã fucionando
         holder.editBt.setOnClickListener {
             //aparecer dialog para editar
@@ -79,9 +87,15 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
                 DialogInterface.OnClickListener { dialogInterface, i ->
                     toDoList.remove(toDoListAtual)
                     notifyItemRemoved(position)
-                    db.toDoListDao().delete(toDoListAtual)
-                    Toast.makeText(c,"Deletada",Toast.LENGTH_SHORT).show()
 
+                    var tasks = db.taskDao().findByToDoList(toDoListAtual.id)
+                    for (i in tasks){
+                        db.taskDao().delete(i)
+                    }
+                    db.toDoListDao().delete(toDoListAtual)
+
+
+                    Toast.makeText(c,"Deletada",Toast.LENGTH_SHORT).show()
                 })
             alert.setNegativeButton("NÃO",
                 DialogInterface.OnClickListener { dialogInterface, i ->

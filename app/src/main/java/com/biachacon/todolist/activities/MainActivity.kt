@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,15 +15,39 @@ import com.biachacon.todolist.R
 import com.biachacon.todolist.adapaters.FixedTabsPageAdapter
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.dialogs.AddListDialogFragment
+import com.biachacon.todolist.model.ToDoList
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    val db:AppDatabase by lazy {
+        Room.databaseBuilder(this, AppDatabase::class.java, "to-do-list")
+            .allowMainThreadQueries()
+            .build()
+    }
 
     val CODE = 99
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var t = db.toDoListDao().listAll().size
+        if (t <= 0) {
+            db.toDoListDao().insert(
+                ToDoList("Default")
+            )
+        }
+
+//        db.toDoListDao().insert(
+//            ToDoList("Teste 1")
+//        )
+//        db.toDoListDao().insert(
+//            ToDoList("Teste 2")
+//        )
+//        db.toDoListDao().insert(
+//            ToDoList("Teste 3")
+//        )
 
         if(getSupportActionBar() != null)
         {
