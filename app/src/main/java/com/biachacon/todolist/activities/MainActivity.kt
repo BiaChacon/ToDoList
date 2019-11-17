@@ -1,6 +1,8 @@
 package com.biachacon.todolist.activities
 
 import android.app.Activity
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.room.Room
 import androidx.viewpager.widget.ViewPager
 import com.biachacon.todolist.R
@@ -24,6 +27,10 @@ class MainActivity : AppCompatActivity() {
         Room.databaseBuilder(this, AppDatabase::class.java, "to-do-list")
             .allowMainThreadQueries()
             .build()
+    }
+
+    val searchManager: SearchManager by lazy {
+        getSystemService(Context.SEARCH_SERVICE) as SearchManager
     }
 
     val CODE = 99
@@ -50,9 +57,7 @@ class MainActivity : AppCompatActivity() {
 //        )
 
         if(getSupportActionBar() != null)
-        {
             getSupportActionBar()!!.setElevation(0.0F)
-        }
 
         val pageAdapter =
             FixedTabsPageAdapter(supportFragmentManager)
@@ -110,9 +115,31 @@ class MainActivity : AppCompatActivity() {
 
         val id = item.getItemId()
 
-        if (id == R.id.search) {
-            Toast.makeText(this, "Search", Toast.LENGTH_LONG).show()
+        if (id == R.id.action_search) {
+
+            SearchView(this).apply {
+                setIconifiedByDefault(true)
+                setSearchableInfo(searchManager.getSearchableInfo(componentName))
+                isSubmitButtonEnabled = false
+                queryHint = "Search"
+
+                setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String): Boolean {
+                        return false
+                    }
+
+                    override fun onQueryTextChange(newText: String): Boolean {
+
+                        return false
+                    }
+
+                })
+            }.also {
+                item.actionView = it
+            }
+
             return true
+
         }
         if (id == R.id.newList) {
             var dialog = AddListDialogFragment()

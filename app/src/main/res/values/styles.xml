@@ -9,6 +9,8 @@
         <item name="android:itemTextAppearance">@style/AppTheme.ItemTextStyle</item>
         <item name="android:actionBarStyle">@style/ActionBarTheme</item>
         <item name="actionBarStyle">@style/ActionBarTheme</item>
+        <!-- SearchView attributes -->
+        <item name="colorControlNormal">@color/write</item>
     </style>
 
     <style name="AppTheme.ItemTextStyle" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
@@ -26,4 +28,5 @@
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
+
 </resources>
