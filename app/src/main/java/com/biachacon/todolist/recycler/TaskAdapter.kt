@@ -3,7 +3,9 @@ package com.biachacon.todolist.recycler
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.opengl.Visibility
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -38,10 +40,18 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
 
         val taskAtual = tasks[position]
+
         holder.nameTask.text = taskAtual.name
         holder.dateTask.text = taskAtual.date
+
         var t =  db.toDoListDao().findById(taskAtual.id_ToDoList.toLong())
         holder.nameList.text = t.name
+
+        if(taskAtual.date != "")
+            holder.dateTask.visibility = View.VISIBLE
+
+        if(holder.nameList.text != "Default")
+            holder.nameList.visibility = View.VISIBLE
 
         if(taskAtual.finished){
             holder.finished.isChecked = true

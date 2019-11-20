@@ -40,6 +40,13 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
         var toDoListAtual = toDoList[position]
 
         holder.qtdTasks.text = toDoListAtual.qtd_taks.toString()
+
+        if (toDoListAtual.qtd_taks <= 0) {
+            holder.noTasks.visibility = View.VISIBLE
+        }else{
+            holder.layoutQtdTasks.visibility = View.VISIBLE
+        }
+
         holder.nameToDoList.text = toDoListAtual.name
 
         if (position <= 0){

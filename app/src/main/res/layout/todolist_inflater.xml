@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/write">
+    android:layout_margin="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/write"
+    app:cardCornerRadius="5dp"
+    tools:ignore="MissingDefaultResource">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginTop="5sp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="10sp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -25,11 +33,22 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
+            <TextView
+                android:id="@+id/noTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="No tasks"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                android:visibility="gone"/>
+
             <LinearLayout
+                android:id="@+id/layoutQtdTasks"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginBottom="10sp">
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -56,7 +75,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5sp"
         android:layout_marginRight="10sp"
         android:gravity="right">
 
@@ -68,7 +86,7 @@
             android:layout_marginRight="20sp"
             android:background="@color/write"
             android:src="@drawable/ic_edit"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/deleteBt"
@@ -77,13 +95,7 @@
             android:layout_gravity="center"
             android:background="@color/write"
             android:src="@drawable/ic_delete"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 
-    <View
-        android:layout_width="380dp"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_gravity="center_horizontal|bottom"/>
-
-</FrameLayout>
+</androidx.cardview.widget.CardView>
