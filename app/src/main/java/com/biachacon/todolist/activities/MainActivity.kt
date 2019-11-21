@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         var t = db.toDoListDao().listAll().size
         if (t <= 0) {
             db.toDoListDao().insert(
-                ToDoList("Default")
+                ToDoList(getString(R.string.name_default))
             )
         }
 
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
                 setIconifiedByDefault(true)
                 setSearchableInfo(searchManager.getSearchableInfo(componentName))
                 isSubmitButtonEnabled = false
-                queryHint = "Search"
+                queryHint = getString(R.string.search)
 
                 setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String): Boolean {
@@ -147,7 +147,11 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         if (id == R.id.settings) {
-            Toast.makeText(this, "Settings", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.settings, Toast.LENGTH_LONG).show()
+            return true
+        }
+        if (id == R.id.about){
+            Toast.makeText(this, R.string.about, Toast.LENGTH_LONG).show()
             return true
         }
 
@@ -161,10 +165,10 @@ class MainActivity : AppCompatActivity() {
             CODE ->{
                 when(resultCode){
                     Activity.RESULT_OK->{
-                        Toast.makeText(this, "save", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.save, Toast.LENGTH_SHORT).show()
                     }
                     Activity.RESULT_CANCELED->{
-                        Toast.makeText(this, "canceled" , Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.canceled , Toast.LENGTH_SHORT).show()
                     }
                 }
             }

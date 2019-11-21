@@ -5,5 +5,5 @@
         android:id="@+id/cancel"
         android:icon="@drawable/ic_close"
         app:showAsAction="always"
-        android:title="cancel"/>
+        android:title="@string/cancel"/>
 </menu>

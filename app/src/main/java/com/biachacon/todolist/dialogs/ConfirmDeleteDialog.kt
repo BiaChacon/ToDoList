@@ -22,12 +22,9 @@ class ConfirmDeleteDialog: DialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        // Verify that the host activity implements the callback interface
         try {
-            // Instantiate the NoticeDialogListener so we can send events to the host
             listener = context as NoticeDialogListener
         } catch (e: ClassCastException) {
-            // The activity doesn't implement the interface, throw exception
             throw ClassCastException((context.toString() +
                     " must implement NoticeDialogListener"))
         }
@@ -37,12 +34,12 @@ class ConfirmDeleteDialog: DialogFragment() {
         return activity?.let{
             val builder = AlertDialog.Builder(it)
             builder.setMessage("Deletar Permanentemente?")
-                .setPositiveButton("SIM",
+                .setPositiveButton(R.string.yes,
                     DialogInterface.OnClickListener{
                             dialog,id ->
                         listener.onDialogPositiveClickD(this)
                     })
-                .setNegativeButton("NÃO",
+                .setNegativeButton(R.string.cancel,
                     DialogInterface.OnClickListener { dialog, id ->
                         listener.onDialogNegativeClickD(this)
                     })

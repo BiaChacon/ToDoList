@@ -19,7 +19,7 @@
             android:fontFamily="sans-serif"
             android:freezesText="false"
             android:includeFontPadding="false"
-            android:text="New List"
+            android:text="@string/new_list"
             android:textAllCaps="false"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -35,6 +35,6 @@
         android:layout_marginLeft="5sp"
         android:layout_marginRight="4sp"
         android:layout_marginTop="20sp"
-        android:hint="List Name"/>
+        android:hint="@string/list_name"/>
 
 </LinearLayout>

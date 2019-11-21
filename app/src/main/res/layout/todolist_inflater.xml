@@ -29,7 +29,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10sp"
-                android:text="Name List"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -38,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="No tasks"
+                android:text="@string/no_tasks"
                 android:textColor="@color/grey"
                 android:textSize="12sp"
                 android:visibility="gone"/>
@@ -54,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Tasks:"
+                    android:text="@string/tasks"
                     android:textColor="@color/colorPrimary"
                     android:textSize="12sp" />
 

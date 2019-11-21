@@ -62,28 +62,35 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
 
         holder.finished.setOnClickListener {
             var alert= AlertDialog.Builder(c)
-            alert.setMessage(stringDialog + " Tarefa?")
-            alert.setPositiveButton("SIM",
+            alert.setTitle(R.string.are_you_sure)
+            if(taskAtual.finished){
+                alert.setMessage(R.string.task_to_redo)
+            }else{
+                alert.setMessage(R.string.finish_task)
+            }
+
+
+            alert.setPositiveButton(R.string.yes,
                 DialogInterface.OnClickListener { dialogInterface, i ->
                     if(taskAtual.finished){
                         taskAtual.finished = false
                         tasks.remove(taskAtual)
                         notifyItemRemoved(position)
                         db.taskDao().update(taskAtual)
-                        Toast.makeText(c,"Desfeita",Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(c,"Desfeita",Toast.LENGTH_SHORT).show()
 
                     }else{
                         taskAtual.finished = true
                         tasks.remove(taskAtual)
                         notifyItemRemoved(position)
                         db.taskDao().update(taskAtual)
-                        Toast.makeText(c,"Finalizada",Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(c,"Finalizada",Toast.LENGTH_SHORT).show()
 
                     }
                 })
-            alert.setNegativeButton("NÃO",
+            alert.setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialogInterface, i ->
-                    Toast.makeText(c,"Cancelado",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(c,R.string.canceled,Toast.LENGTH_SHORT).show()
                     holder.finished.isChecked = stringDialog == "Desfazer"
                 })
 
@@ -105,8 +112,9 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
         holder.deleteTask.setOnClickListener {
 
             var alert= AlertDialog.Builder(c)
-            alert.setMessage("Deletar Permanentemente?")
-            alert.setPositiveButton("SIM",
+            alert.setTitle(R.string.are_you_sure)
+            alert.setMessage(R.string.delete_task)
+            alert.setPositiveButton(R.string.delete,
                 DialogInterface.OnClickListener { dialogInterface, i ->
 
                     tasks.remove(taskAtual)
@@ -118,12 +126,12 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
 
                     db.taskDao().delete(taskAtual)
 
-                    Toast.makeText(c,"Deletada",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(c,R.string.task_deleted,Toast.LENGTH_SHORT).show()
 
                 })
-            alert.setNegativeButton("NÃO",
+            alert.setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialogInterface, i ->
-                    Toast.makeText(c,"Cancelado",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(c,R.string.canceled,Toast.LENGTH_SHORT).show()
                 })
 
 //            tasks.remove(taskAtual)

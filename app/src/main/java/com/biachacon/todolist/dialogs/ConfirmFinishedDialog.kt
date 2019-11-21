@@ -34,13 +34,13 @@ class ConfirmFinishedDialog: DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let{
             val builder = AlertDialog.Builder(it)
-            builder.setMessage("Finalizada?")
-                .setPositiveButton("SIM",
+            builder.setMessage("Finish task?")
+                .setPositiveButton(R.string.yes,
                     DialogInterface.OnClickListener{
                         dialog,id ->
                        // listener.onDialogPositiveClick(this)
                     })
-                .setNegativeButton("NÃO",
+                .setNegativeButton(R.string.cancel,
                     DialogInterface.OnClickListener { dialog, id ->
                        // listener.onDialogNegativeClick(this)
                     })

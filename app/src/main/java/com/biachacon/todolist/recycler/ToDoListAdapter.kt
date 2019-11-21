@@ -67,20 +67,20 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
             var alert= AlertDialog.Builder(c)
             alert.setView(R.layout.edit_list_layout)
 
-            alert.setPositiveButton("SIM",
+            alert.setPositiveButton(R.string.save,
                 DialogInterface.OnClickListener { dialogInterface, i ->
                     //pego o que a pessoa digitou e coloco no objeto
                     toDoListAtual.name = dialogview.nameEditList.text.toString()
                     //altero no banco
                     db.toDoListDao().update(toDoListAtual)
-                    Toast.makeText(c,"Alterado",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(c,R.string.updated,Toast.LENGTH_SHORT).show()
                     //digo que mudei um item
                     notifyItemChanged(position)
 
                 })
-            alert.setNegativeButton("Cancelar",
+            alert.setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialogInterface, i ->
-                    Toast.makeText(c,"Cancelado",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(c,R.string.canceled,Toast.LENGTH_SHORT).show()
                 })
 
             var dialog = alert.create()
@@ -89,8 +89,9 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
 
         holder.deleteBt.setOnClickListener {
             var alert= AlertDialog.Builder(c)
-            alert.setMessage("Deletar Permanentemente?")
-            alert.setPositiveButton("SIM",
+            alert.setTitle(R.string.are_you_sure)
+            alert.setMessage(R.string.list_deleted_message)
+            alert.setPositiveButton(R.string.delete,
                 DialogInterface.OnClickListener { dialogInterface, i ->
                     toDoList.remove(toDoListAtual)
                     notifyItemRemoved(position)
@@ -102,11 +103,11 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
                     db.toDoListDao().delete(toDoListAtual)
 
 
-                    Toast.makeText(c,"Deletada",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(c,R.string.list_deleted,Toast.LENGTH_SHORT).show()
                 })
-            alert.setNegativeButton("NÃO",
+            alert.setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialogInterface, i ->
-                    Toast.makeText(c,"Cancelado",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(c,R.string.canceled,Toast.LENGTH_SHORT).show()
                 })
 
 //            tasks.remove(taskAtual)

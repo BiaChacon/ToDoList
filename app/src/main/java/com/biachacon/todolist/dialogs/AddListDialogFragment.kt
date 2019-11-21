@@ -15,11 +15,11 @@ class AddListDialogFragment:DialogFragment() {
 
             var builder = AlertDialog.Builder(it)
                 .setView(it.layoutInflater.inflate(R.layout.add_list_layout, null))
-                .setPositiveButton("Save"){dialogInterface, i ->
-                    Toast.makeText(it.baseContext, "SAVE!", Toast.LENGTH_SHORT).show()
+                .setPositiveButton(R.string.save){dialogInterface, i ->
+                    Toast.makeText(it.baseContext, R.string.saved, Toast.LENGTH_SHORT).show()
                 }
-                .setNegativeButton("Canceled"){dialogInterface, i ->
-                    Toast.makeText(it.baseContext, "CANCELED!", Toast.LENGTH_SHORT).show()
+                .setNegativeButton(R.string.cancel){dialogInterface, i ->
+                    Toast.makeText(it.baseContext, R.string.canceled, Toast.LENGTH_SHORT).show()
                 }
             builder.create()
         }?: throw IllegalStateException("Activity not found")

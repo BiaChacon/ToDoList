@@ -38,7 +38,6 @@
                 android:id="@+id/nameTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name Task"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -46,7 +45,6 @@
                 android:id="@+id/dateTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="date task"
                 android:textColor="@color/colorPrimary"
                 android:textSize="15sp"
                 android:visibility="gone"/>
@@ -55,7 +53,6 @@
                 android:id="@+id/nameListT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name List"
                 android:textColor="@color/grey"
                 android:textSize="15sp"
                 android:visibility="gone"/>
