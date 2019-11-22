@@ -9,6 +9,9 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.room.Room
 import com.biachacon.todolist.R
 import com.biachacon.todolist.database.AppDatabase
@@ -16,9 +19,11 @@ import com.biachacon.todolist.dialogs.AddListDialogFragment
 import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.model.ToDoList
 import kotlinx.android.synthetic.main.activity_add_task.*
+import kotlinx.android.synthetic.main.add_list_layout.*
 import java.util.*
 
-class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,AddListDialogFragment.NoticeDialogListener{
+
 
     val db: AppDatabase by lazy {
         Room.databaseBuilder(this, AppDatabase::class.java, "to-do-list")
@@ -74,6 +79,7 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         addNewlist.setOnClickListener {
             var dialog = AddListDialogFragment()
             dialog.show(supportFragmentManager, "Dialog")
+
         }
 
     }
@@ -115,6 +121,18 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         ))
         setResult(Activity.RESULT_OK)
         finish()
+    }
+
+    override fun onDialogPositiveClick(dialog: DialogFragment) {
+        var editText = dialog.dialog.findViewById<EditText>(R.id.nameList)
+        var newList = editText.text.toString()
+         var t = ToDoList(newList)
+        db.toDoListDao().insert(t)
+        //Toast.makeText(this,"Criada: ${newList}",Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDialogNegativeClick(dialog: DialogFragment) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }
