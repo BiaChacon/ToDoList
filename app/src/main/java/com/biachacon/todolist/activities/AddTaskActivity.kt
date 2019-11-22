@@ -85,6 +85,8 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
 
     }
 
+
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_add, menu)
         return true
@@ -137,14 +139,14 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
     }
 
     override fun onQuitAnyway(dialog: DialogFragment) {
+        super.onBackPressed()
     }
     override fun onCancelQuit(dialog: DialogFragment) {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         var dialog = ConfirmExitWOSave()
-        dialog.show(supportFragmentManager,"Dialog")
+        dialog.show(supportFragmentManager,"DialogWOSave")
     }
 
 }
