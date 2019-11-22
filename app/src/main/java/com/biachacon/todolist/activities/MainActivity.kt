@@ -10,8 +10,10 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.DialogFragment
 import androidx.room.Room
 import androidx.viewpager.widget.ViewPager
 import com.biachacon.todolist.R
@@ -21,7 +23,8 @@ import com.biachacon.todolist.dialogs.AddListDialogFragment
 import com.biachacon.todolist.model.ToDoList
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogListener{
+
 
     val db:AppDatabase by lazy {
         Room.databaseBuilder(this, AppDatabase::class.java, "to-do-list")
@@ -178,6 +181,16 @@ class MainActivity : AppCompatActivity() {
     fun addTask(view: View) {
         val intent = Intent(this, AddTaskActivity::class.java)
         startActivityForResult(intent, CODE)
+    }
+
+    override fun onDialogPositiveClick(dialog: DialogFragment) {
+        var editText = dialog.dialog.findViewById<EditText>(R.id.nameList)
+        var newList = editText.text.toString()
+        var t = ToDoList(newList)
+        db.toDoListDao().insert(t)    }
+
+    override fun onDialogNegativeClick(dialog: DialogFragment) {
+        Toast.makeText(this,"Cancelada",Toast.LENGTH_SHORT).show()
     }
 
 }

@@ -44,7 +44,6 @@ class ConfirmFinishedDialog: DialogFragment() {
                     DialogInterface.OnClickListener { dialog, id ->
                        // listener.onDialogNegativeClick(this)
                     })
-
             builder.create()
         }?: throw IllegalStateException("Activity cannot be null")
     }

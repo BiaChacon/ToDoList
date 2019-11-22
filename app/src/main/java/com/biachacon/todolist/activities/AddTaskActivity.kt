@@ -16,13 +16,15 @@ import androidx.room.Room
 import com.biachacon.todolist.R
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.dialogs.AddListDialogFragment
+import com.biachacon.todolist.dialogs.ConfirmExitWOSave
 import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.model.ToDoList
 import kotlinx.android.synthetic.main.activity_add_task.*
 import kotlinx.android.synthetic.main.add_list_layout.*
 import java.util.*
 
-class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,AddListDialogFragment.NoticeDialogListener{
+class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
+    AddListDialogFragment.NoticeDialogListener,ConfirmExitWOSave.ConfirmeExitWOSaveListener{
 
 
     val db: AppDatabase by lazy {
@@ -79,7 +81,6 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         addNewlist.setOnClickListener {
             var dialog = AddListDialogFragment()
             dialog.show(supportFragmentManager, "Dialog")
-
         }
 
     }
@@ -126,13 +127,24 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
     override fun onDialogPositiveClick(dialog: DialogFragment) {
         var editText = dialog.dialog.findViewById<EditText>(R.id.nameList)
         var newList = editText.text.toString()
-         var t = ToDoList(newList)
+        var t = ToDoList(newList)
         db.toDoListDao().insert(t)
-        //Toast.makeText(this,"Criada: ${newList}",Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onDialogNegativeClick(dialog: DialogFragment) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this,"Cancelada",Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onQuitAnyway(dialog: DialogFragment) {
+    }
+    override fun onCancelQuit(dialog: DialogFragment) {
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        var dialog = ConfirmExitWOSave()
+        dialog.show(supportFragmentManager,"Dialog")
     }
 
 }
