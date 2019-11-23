@@ -112,14 +112,21 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     }
 
     fun editTask(view: View) {
-//        var toDoList: ToDoList = db.toDoListDao().findByName(l)
-//        toDoList.qtd_taks++
-//        db.toDoListDao().update(toDoList)
-
         var task = db.taskDao().findById(id!!.toLong())
         task.name = editTask.text.toString()
         task.date = dateChoiceE.text.toString()
+
         //set id list
+        var toDoList: ToDoList = db.toDoListDao().findByName(l)
+        var toDoList2: ToDoList = db.toDoListDao().findById(task.id_ToDoList.toLong())
+
+        if (toDoList.id != task.id_ToDoList){
+            toDoList.qtd_taks++
+            db.toDoListDao().update(toDoList)
+            toDoList2.qtd_taks--
+            db.toDoListDao().update(toDoList2)
+        }
+        task.id_ToDoList = toDoList.id
 
         db.taskDao().update(task)
         setResult(Activity.RESULT_OK)
