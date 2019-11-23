@@ -13,7 +13,7 @@
     tools:ignore="MissingDefaultResource">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_marginBottom="10sp">
@@ -44,8 +44,8 @@
 
             <LinearLayout
                 android:id="@+id/layoutQtdTasks"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:visibility="gone">
 

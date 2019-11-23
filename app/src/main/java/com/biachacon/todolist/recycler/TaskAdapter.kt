@@ -3,6 +3,7 @@ package com.biachacon.todolist.recycler
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.biachacon.todolist.R
+import com.biachacon.todolist.activities.AddTaskActivity
+import com.biachacon.todolist.activities.EditTaskActivity
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.model.ToDoList
@@ -58,6 +61,12 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
             stringDialog = "Desfazer"
         }else{
             stringDialog = "Finalizar"
+        }
+
+        holder.layoutTask.setOnClickListener{
+            var intent = Intent(c,EditTaskActivity::class.java)
+           intent.putExtra("task", taskAtual.id)
+            c.startActivity(intent)
         }
 
         holder.finished.setOnClickListener {

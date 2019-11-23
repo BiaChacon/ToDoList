@@ -12,13 +12,14 @@ class TaskViewHolder(v : View) : RecyclerView.ViewHolder(v) {
     val dateTask: TextView
     val nameList: TextView
     val deleteTask: ImageButton
-
+    val layoutTask: LinearLayout
     init {
         nameTask = v.findViewById(R.id.nameTask)
         dateTask = v.findViewById(R.id.dateTask)
         nameList = v.findViewById(R.id.nameListT)
         deleteTask = v.findViewById(R.id.deleteTask)
         finished = v.findViewById(R.id.checkboxTask)
+        layoutTask = v.findViewById(R.id.layoutTask)
     }
 
 }

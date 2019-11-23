@@ -27,53 +27,54 @@
             android:layout_marginLeft="5sp"
             android:layout_marginRight="10sp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contextClickable="true"
-            android:gravity="left"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/nameTask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/dateTask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:textSize="15sp"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/nameListT"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/grey"
-                android:textSize="15sp"
-                android:visibility="gone"/>
-
-        </LinearLayout>
-
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10sp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:id="@+id/layoutTask"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"  >
+<!--                android:contextClickable="true"-->
+<!--                android:onClick="editTask"-->
+
+
+                <TextView
+                    android:id="@+id/nameTask"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/nameListT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/dateTask"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:visibility="gone" />
+            </LinearLayout>
 
             <ImageButton
                 android:id="@+id/deleteTask"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="right"
-                android:backgroundTint="@color/write"
-                android:src="@drawable/ic_delete" />
-        </LinearLayout>
+                android:background="@color/write"
+                android:src="@drawable/ic_delete"
+                android:layout_marginRight="10sp"/>
+
+        </FrameLayout>
 
     </LinearLayout>
 
