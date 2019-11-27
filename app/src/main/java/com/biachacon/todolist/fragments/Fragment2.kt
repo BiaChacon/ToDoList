@@ -16,6 +16,7 @@ import com.biachacon.todolist.recycler.ToDoListAdapter
 class Fragment2 : Fragment() {
 
     var v:View? = null
+    var adapter:ToDoListAdapter? = null
 
     val db: AppDatabase by lazy {
         Room.databaseBuilder(this!!.activity!!, AppDatabase::class.java, "to-do-list")
@@ -36,7 +37,7 @@ class Fragment2 : Fragment() {
 
         var toDoList:MutableList<ToDoList> = db.toDoListDao().list()
 
-        var adapter = activity?.let { ToDoListAdapter(it,toDoList ) }
+        adapter = activity?.let { ToDoListAdapter(it,toDoList ) }
 
         var  rv:RecyclerView = v!!.findViewById(R.id.recyclerview2)
 

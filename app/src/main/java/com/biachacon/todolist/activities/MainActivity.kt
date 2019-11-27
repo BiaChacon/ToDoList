@@ -26,6 +26,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogListener{
 
 
+    lateinit var pageAdapter:FixedTabsPageAdapter
+
     val db:AppDatabase by lazy {
         Room.databaseBuilder(this, AppDatabase::class.java, "to-do-list")
             .allowMainThreadQueries()
@@ -62,7 +64,7 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
         if(getSupportActionBar() != null)
             getSupportActionBar()!!.setElevation(0.0F)
 
-        val pageAdapter =
+       pageAdapter =
             FixedTabsPageAdapter(supportFragmentManager)
 
         viewpager.adapter = pageAdapter
@@ -187,7 +189,10 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
         var editText = dialog.dialog.findViewById<EditText>(R.id.nameList)
         var newList = editText.text.toString()
         var t = ToDoList(newList)
-        db.toDoListDao().insert(t)    }
+        db.toDoListDao().insert(t)
+        Log.i("teste","chegou")
+        pageAdapter.f2.onResume()
+    }
 
     override fun onDialogNegativeClick(dialog: DialogFragment) {
         Toast.makeText(this,"Cancelada",Toast.LENGTH_SHORT).show()

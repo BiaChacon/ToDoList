@@ -28,9 +28,8 @@ class ConfirmExitWOSave: DialogFragment() {
         }
     }
 
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return super.onCreateDialog(savedInstanceState)
+        super.onCreateDialog(savedInstanceState)
         return activity?.let {
         val builder= AlertDialog.Builder(it)
             builder.setMessage("Sair sem salvar?")
