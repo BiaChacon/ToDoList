@@ -30,6 +30,8 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             .build()
     }
 
+    var  c :Boolean?=null
+    var dialog = ConfirmExitWOSave()
     lateinit var list:Array<String?>
     var l: String = ""
     var id:Int = 0
@@ -95,8 +97,11 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         val id = item.getItemId()
         return when(id){
             R.id.cancel -> {
-                setResult(Activity.RESULT_CANCELED)
-                finish()
+                dialog.show(supportFragmentManager,"DialogWOSave")
+                if (c == true) {
+                    setResult(Activity.RESULT_CANCELED)
+                    finish()
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -147,12 +152,13 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
     override fun onQuitAnyway(dialog: DialogFragment) {
         super.onBackPressed()
+        c = true
     }
     override fun onCancelQuit(dialog: DialogFragment) {
+        c = false
     }
 
     override fun onBackPressed() {
-        var dialog = ConfirmExitWOSave()
         dialog.show(supportFragmentManager,"DialogWOSave")
     }
 

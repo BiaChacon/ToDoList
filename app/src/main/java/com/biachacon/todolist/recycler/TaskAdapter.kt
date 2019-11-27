@@ -126,14 +126,16 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
             alert.setPositiveButton(R.string.delete,
                 DialogInterface.OnClickListener { dialogInterface, i ->
 
-                    tasks.remove(taskAtual)
-                    notifyItemRemoved(position)
+
 
                     var toDoList:ToDoList = db.toDoListDao().findById(taskAtual.id_ToDoList.toLong())
                     toDoList.qtd_taks--
                     db.toDoListDao().update(toDoList)
 
                     db.taskDao().delete(taskAtual)
+
+                    tasks.remove(taskAtual)
+                    notifyDataSetChanged()
 
                     Toast.makeText(c,R.string.task_deleted,Toast.LENGTH_SHORT).show()
 

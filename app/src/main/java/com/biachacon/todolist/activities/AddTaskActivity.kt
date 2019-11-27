@@ -33,14 +33,16 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
             .build()
     }
 
+    var  c :Boolean?=null
     lateinit var list:Array<String?>
     var l: String = ""
     var date:String = ""
 
+    var dialog = ConfirmExitWOSave()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_task)
-
+        c = false
         val actionBar = supportActionBar
         actionBar!!.title = "New Task"
 
@@ -89,9 +91,13 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         val id = item.getItemId()
         return when(id){
             R.id.cancel -> {
-                setResult(Activity.RESULT_CANCELED)
-                finish()
+                dialog.show(supportFragmentManager,"DialogWOSave")
+                if (c == true) {
+                    setResult(Activity.RESULT_CANCELED)
+                    finish()
+                }
                 true
+
             }
             else -> super.onOptionsItemSelected(item)
         }
@@ -134,13 +140,13 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
 
     override fun onQuitAnyway(dialog: DialogFragment) {
         super.onBackPressed()
+        c = true
     }
     override fun onCancelQuit(dialog: DialogFragment) {
+        c = false
     }
 
     override fun onBackPressed() {
-
-        var dialog = ConfirmExitWOSave()
         dialog.show(supportFragmentManager,"DialogWOSave")
     }
 

@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,7 +66,7 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
             dialogview.nameEditList.setText(toDoListAtual.name)
 
             var alert= AlertDialog.Builder(c)
-            alert.setView(R.layout.edit_list_layout)
+            alert.setView(dialogview)
 
             alert.setPositiveButton(R.string.save,
                 DialogInterface.OnClickListener { dialogInterface, i ->
@@ -88,20 +89,24 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
         }
 
         holder.deleteBt.setOnClickListener {
+
+            Log.i("TANIRO", "$position")
+
             var alert= AlertDialog.Builder(c)
+
             alert.setTitle(R.string.are_you_sure)
             alert.setMessage(R.string.list_deleted_message)
             alert.setPositiveButton(R.string.delete,
                 DialogInterface.OnClickListener { dialogInterface, i ->
-                    toDoList.remove(toDoListAtual)
-                    notifyItemRemoved(position)
-
                     var tasks = db.taskDao().findByToDoList(toDoListAtual.id)
                     for (i in tasks){
                         db.taskDao().delete(i)
                     }
                     db.toDoListDao().delete(toDoListAtual)
 
+                    toDoList.remove(toDoListAtual)
+                    //notifyItemRemoved(position)
+                    notifyDataSetChanged()
 
                     Toast.makeText(c,R.string.list_deleted,Toast.LENGTH_SHORT).show()
                 })
@@ -115,7 +120,7 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
 //            db.taskDao().delete(taskAtual)
             var dialog = alert.create()
             dialog.show()
-            notifyItemChanged(position)
+            //notifyItemChanged(position)
         }
 
     }
