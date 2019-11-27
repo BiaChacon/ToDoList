@@ -67,20 +67,13 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         }
 
 
-        list = Array(db.toDoListDao().listAll().size) { null }
-        var j=0
-        for (i in db.toDoListDao().listAll()){
-            list.set(j, value = i.name)
-            j++
-        }
-        spinner!!.setOnItemSelectedListener(this)
-        val array_adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list)
-        array_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner!!.setAdapter(array_adapter)
+        listSpinnir()
+
 
         addNewlist.setOnClickListener {
             var dialog = AddListDialogFragment()
             dialog.show(supportFragmentManager, "Dialog")
+
         }
 
     }
@@ -131,6 +124,7 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         var newList = editText.text.toString()
         var t = ToDoList(newList)
         db.toDoListDao().insert(t)
+        listSpinnir()
 
     }
 
@@ -145,8 +139,24 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
     }
 
     override fun onBackPressed() {
+
         var dialog = ConfirmExitWOSave()
         dialog.show(supportFragmentManager,"DialogWOSave")
+    }
+
+    fun listSpinnir(){
+        list = Array(db.toDoListDao().listAll().size) { null }
+        var j=0
+        for (i in db.toDoListDao().listAll()){
+            list.set(j, value = i.name)
+            j++
+        }
+
+        spinner!!.setOnItemSelectedListener(this)
+        val array_adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list)
+        array_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner!!.setAdapter(array_adapter)
+
     }
 
 }
