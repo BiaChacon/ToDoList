@@ -33,4 +33,6 @@
     <string name="yes">Sim</string>
     <string name="date_not_set">Data não informada</string>
     <string name="quitWOsave">Sair sem salvar?</string>
+    <string name="edit_task">Editar Tarefa</string>
+    <string name="add_task">Adicionar Tarefa</string>
 </resources>

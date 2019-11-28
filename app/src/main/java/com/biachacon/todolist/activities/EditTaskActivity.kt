@@ -41,7 +41,7 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         setContentView(R.layout.activity_edit_task)
 
         val actionBar = supportActionBar
-        actionBar!!.title = "Edit Task"
+        actionBar!!.title = getString(R.string.edit_task)
 
         var param = intent.extras
         id = param?.getInt("task")!!
@@ -73,18 +73,6 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         var task = db.taskDao().findById(id!!.toLong())
         editTask.setText(task.name)
         dateChoiceE.setText(task.date)
-        //set list
-
-        list = Array(db.toDoListDao().listAll().size) { null }
-        var j=0
-        for (i in db.toDoListDao().listAll()){
-            list.set(j, value = i.name)
-            j++
-        }
-        spinnerE!!.setOnItemSelectedListener(this)
-        val array_adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list)
-        array_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerE!!.setAdapter(array_adapter)
 
     }
 
@@ -121,7 +109,7 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         task.name = editTask.text.toString()
         task.date = dateChoiceE.text.toString()
 
-        //set id list
+
         var toDoList: ToDoList = db.toDoListDao().findByName(l)
         var toDoList2: ToDoList = db.toDoListDao().findById(task.id_ToDoList.toLong())
 
@@ -143,6 +131,7 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         var newList = editText.text.toString()
         var t = ToDoList(newList)
         db.toDoListDao().insert(t)
+        onResume()
 
     }
 
@@ -160,6 +149,25 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
     override fun onBackPressed() {
         dialog.show(supportFragmentManager,"DialogWOSave")
+    }
+
+    fun listSpinnir(){
+        list = Array(db.toDoListDao().listAll().size) { null }
+        var j=0
+        for (i in db.toDoListDao().listAll()){
+            list.set(j, value = i.name)
+            j++
+        }
+        spinnerE!!.setOnItemSelectedListener(this)
+        val array_adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list)
+        array_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerE!!.setAdapter(array_adapter)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        listSpinnir()
     }
 
 }

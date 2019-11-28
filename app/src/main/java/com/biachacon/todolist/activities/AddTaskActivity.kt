@@ -44,7 +44,7 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         setContentView(R.layout.activity_add_task)
         c = false
         val actionBar = supportActionBar
-        actionBar!!.title = "New Task"
+        actionBar!!.title = getString(R.string.add_task)
 
         //Calendar
         val c = Calendar.getInstance()
@@ -69,7 +69,7 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         }
 
 
-        listSpinnir()
+        //listSpinnir()
 
 
         addNewlist.setOnClickListener {
@@ -130,12 +130,11 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         var newList = editText.text.toString()
         var t = ToDoList(newList)
         db.toDoListDao().insert(t)
-        listSpinnir()
-
+        onResume()
     }
 
     override fun onDialogNegativeClick(dialog: DialogFragment) {
-        Toast.makeText(this,"Cancelada",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,R.string.canceled,Toast.LENGTH_SHORT).show()
     }
 
     override fun onQuitAnyway(dialog: DialogFragment) {
@@ -150,6 +149,11 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         dialog.show(supportFragmentManager,"DialogWOSave")
     }
 
+    override fun onResume() {
+        super.onResume()
+        listSpinnir()
+    }
+
     fun listSpinnir(){
         list = Array(db.toDoListDao().listAll().size) { null }
         var j=0
@@ -157,7 +161,6 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
             list.set(j, value = i.name)
             j++
         }
-
         spinner!!.setOnItemSelectedListener(this)
         val array_adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list)
         array_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
