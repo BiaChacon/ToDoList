@@ -4,11 +4,9 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +23,7 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
             .allowMainThreadQueries()
             .build()
     }
+
     var dialogview = View.inflate(c,R.layout.edit_list_layout,null)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoListViewHolder {
@@ -58,11 +57,8 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
             holder.editBt.visibility = View.VISIBLE
         }
 
-        // n entendo o que de não estã fucionando
+
         holder.editBt.setOnClickListener {
-            //aparecer dialog para editar
-            // isso aqui é pra aparecer o nome no edit text
-            var dialogview = View.inflate(c,R.layout.edit_list_layout,null)
             dialogview.nameEditList.setText(toDoListAtual.name)
 
             var alert= AlertDialog.Builder(c)
@@ -70,27 +66,24 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
 
             alert.setPositiveButton(R.string.save,
                 DialogInterface.OnClickListener { dialogInterface, i ->
-                    //pego o que a pessoa digitou e coloco no objeto
                     toDoListAtual.name = dialogview.nameEditList.text.toString()
-                    //altero no banco
                     db.toDoListDao().update(toDoListAtual)
                     Toast.makeText(c,R.string.updated,Toast.LENGTH_SHORT).show()
-                    //digo que mudei um item
                     notifyItemChanged(position)
-
-                })
+                }
+            )
             alert.setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialogInterface, i ->
                     Toast.makeText(c,R.string.canceled,Toast.LENGTH_SHORT).show()
-                })
+                }
+            )
 
             var dialog = alert.create()
             dialog.show()
+
         }
 
         holder.deleteBt.setOnClickListener {
-
-            Log.i("TANIRO", "$position")
 
             var alert= AlertDialog.Builder(c)
 
@@ -103,24 +96,20 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
                         db.taskDao().delete(i)
                     }
                     db.toDoListDao().delete(toDoListAtual)
-
                     toDoList.remove(toDoListAtual)
-                    //notifyItemRemoved(position)
                     notifyDataSetChanged()
-
                     Toast.makeText(c,R.string.list_deleted,Toast.LENGTH_SHORT).show()
-                })
+                }
+            )
             alert.setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialogInterface, i ->
                     Toast.makeText(c,R.string.canceled,Toast.LENGTH_SHORT).show()
-                })
+                }
+            )
 
-//            tasks.remove(taskAtual)
-//            notifyItemRemoved(position)
-//            db.taskDao().delete(taskAtual)
             var dialog = alert.create()
             dialog.show()
-            //notifyItemChanged(position)
+
         }
 
     }
