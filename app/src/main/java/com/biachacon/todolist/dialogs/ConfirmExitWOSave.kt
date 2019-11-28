@@ -1,6 +1,6 @@
 package com.biachacon.todolist.dialogs
 
-import android.R
+import com.biachacon.todolist.R
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -32,7 +32,7 @@ class ConfirmExitWOSave: DialogFragment() {
         super.onCreateDialog(savedInstanceState)
         return activity?.let {
         val builder= AlertDialog.Builder(it)
-            builder.setMessage("Sair sem salvar?")
+            builder.setMessage(getString(R.string.quitWOsave))
                 .setPositiveButton(
                     R.string.yes,
                     DialogInterface.OnClickListener{

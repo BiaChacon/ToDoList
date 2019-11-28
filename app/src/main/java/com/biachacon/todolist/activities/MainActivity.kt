@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
             getSupportActionBar()!!.setElevation(0.0F)
 
        pageAdapter =
-            FixedTabsPageAdapter(supportFragmentManager)
+            FixedTabsPageAdapter(supportFragmentManager,this)
 
         viewpager.adapter = pageAdapter
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lista de Afazeres</string>
+    <string name="about">Sobre</string>
+    <string name="add_to_list">Adicionar à lista</string>
+    <string name="all_tasks">Tarefas</string>
+    <string name="are_you_sure">Tem Certeza?</string>
+    <string name="cancel">Cancelar</string>
+    <string name="canceled">Cancelado</string>
+    <string name="delete">Deletar</string>
+    <string name="delete_task">Deletar Tarefa?</string>
+    <string name="due_date">Quando será?</string>
+    <string name="edit_list">Editar Lista</string>
+    <string name="enter_task_here">Nome da Tarefa</string>
+    <string name="finish_task">Finalizar Tarefa?</string>
+    <string name="finished">Finalizadas</string>
+    <string name="list_deleted">Lista Deletada</string>
+    <string name="list_deleted_message">Todas as tarefaz desta lista serão deletadas!</string>
+    <string name="list_name">Nome da Lista</string>
+    <string name="lists">Listas</string>
+    <string name="name_default">Padrão</string>
+    <string name="new_list">Nova Lista</string>
+    <string name="no_tasks">"Nenhuma Tarefa "</string>
+    <string name="save">Salvar</string>
+    <string name="saved">Salva</string>
+    <string name="search">Pesquisar</string>
+    <string name="settings">Configurações</string>
+    <string name="task_deleted">Tarefa Deletada</string>
+    <string name="task_to_redo">Desfazer tarefa?</string>
+    <string name="tasks">Tarefas:</string>
+    <string name="updated">Atualizado</string>
+    <string name="what_is_to_be_done">O que será feito?</string>
+    <string name="yes">Sim</string>
+    <string name="date_not_set">Data não informada</string>
+    <string name="quitWOsave">Sair sem salvar?</string>
+</resources>
