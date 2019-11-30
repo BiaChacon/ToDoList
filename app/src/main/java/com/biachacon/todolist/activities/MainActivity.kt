@@ -153,8 +153,6 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
         return true
     }
 
-
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         val id = item.getItemId()
@@ -186,19 +184,22 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
             return true
 
         }
+
         if (id == R.id.newList) {
             var dialog = AddListDialogFragment()
             dialog.show(supportFragmentManager, "Dialog")
             return true
         }
-        if (id == R.id.settings) {
-            Toast.makeText(this, R.string.settings, Toast.LENGTH_LONG).show()
-            return true
-        }
-        if (id == R.id.about){
-            Toast.makeText(this, R.string.about, Toast.LENGTH_LONG).show()
-            return true
-        }
+
+//        if (id == R.id.settings) {
+//            Toast.makeText(this, R.string.settings, Toast.LENGTH_LONG).show()
+//            return true
+//        }
+
+//        if (id == R.id.about){
+//            Toast.makeText(this, R.string.about, Toast.LENGTH_LONG).show()
+//            return true
+//        }
 
         return super.onOptionsItemSelected(item)
 

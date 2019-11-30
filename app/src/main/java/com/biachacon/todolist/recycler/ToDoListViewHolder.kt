@@ -15,6 +15,7 @@ class ToDoListViewHolder(v : View) : RecyclerView.ViewHolder(v)  {
     val deleteBt: ImageButton
     val layoutQtdTasks: LinearLayout
     val noTasks: TextView
+    val layoutList:LinearLayout
 
     init {
         nameToDoList = v.findViewById(R.id.nameToDoList)
@@ -23,6 +24,7 @@ class ToDoListViewHolder(v : View) : RecyclerView.ViewHolder(v)  {
         deleteBt = v.findViewById(R.id.deleteBt)
         layoutQtdTasks = v.findViewById(R.id.layoutQtdTasks)
         noTasks = v.findViewById(R.id.noTasks)
+        layoutList = v.findViewById(R.id.layoutList)
     }
 
 }

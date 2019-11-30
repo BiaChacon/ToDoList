@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Lista de Afazeres</string>
+    <string name="app_name">Lista de Tarefas</string>
     <string name="about">Sobre</string>
     <string name="add_to_list">Adicionar à lista</string>
     <string name="all_tasks">Tarefas</string>
@@ -35,4 +35,5 @@
     <string name="quitWOsave">Sair sem salvar?</string>
     <string name="edit_task">Editar Tarefa</string>
     <string name="add_task">Adicionar Tarefa</string>
+    <string name="undo" >Desfazer</string>
 </resources>

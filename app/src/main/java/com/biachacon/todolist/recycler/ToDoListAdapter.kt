@@ -3,6 +3,7 @@ package com.biachacon.todolist.recycler
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.biachacon.todolist.R
+import com.biachacon.todolist.activities.TasksActivity
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.model.ToDoList
 import kotlinx.android.synthetic.main.edit_list_layout.view.*
@@ -38,6 +40,12 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: ToDoListViewHolder, position: Int) {
         var toDoListAtual = toDoList[position]
+
+        holder.layoutList.setOnClickListener{
+            var intent = Intent(c, TasksActivity::class.java)
+            intent.putExtra("list", toDoListAtual.id)
+            c.startActivity(intent)
+        }
 
         holder.qtdTasks.text = toDoListAtual.qtd_taks.toString()
 

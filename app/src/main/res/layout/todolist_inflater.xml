@@ -16,85 +16,89 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:layout_marginTop="10sp"
         android:layout_marginBottom="10sp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/nameToDoList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10sp"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/noTasks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="@string/no_tasks"
-                android:textColor="@color/grey"
-                android:textSize="12sp"
-                android:visibility="gone"/>
+            android:layout_gravity="center">
 
             <LinearLayout
-                android:id="@+id/layoutQtdTasks"
-                android:layout_width="wrap_content"
+                android:id="@+id/layoutList"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/nameToDoList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/tasks"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="12sp" />
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/qtdTasks"
+                    android:id="@+id/noTasks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5sp"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="12sp" />
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/no_tasks"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/layoutQtdTasks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/tasks"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/qtdTasks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5sp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
             </LinearLayout>
 
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/editBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="40sp"
+                android:background="@color/write"
+                android:src="@drawable/ic_edit"
+                android:visibility="visible"
+                android:layout_marginTop="10sp"/>
+
+            <ImageButton
+                android:id="@+id/deleteBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@color/write"
+                android:src="@drawable/ic_delete"
+                android:visibility="visible"
+                android:layout_marginRight="10sp"
+                android:layout_marginTop="10sp"/>
+
+        </FrameLayout>
 
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginRight="10sp"
-        android:gravity="right">
-
-        <ImageButton
-            android:id="@+id/editBt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="20sp"
-            android:background="@color/write"
-            android:src="@drawable/ic_edit"
-            android:visibility="gone" />
-
-        <ImageButton
-            android:id="@+id/deleteBt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/write"
-            android:src="@drawable/ic_delete"
-            android:visibility="gone" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
