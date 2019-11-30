@@ -7,10 +7,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.room.Room
 import com.biachacon.todolist.R
@@ -21,8 +20,8 @@ import com.biachacon.todolist.model.ToDoList
 import kotlinx.android.synthetic.main.activity_edit_task.*
 import java.util.*
 
-class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
-    AddListDialogFragment.NoticeDialogListener,ConfirmExitWOSave.ConfirmeExitWOSaveListener {
+class EditTaskActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogListener,
+    ConfirmExitWOSave.ConfirmeExitWOSaveListener {
 
     val db: AppDatabase by lazy {
         Room.databaseBuilder(this, AppDatabase::class.java, "to-do-list")
@@ -32,9 +31,12 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
     var  c :Boolean?=null
     var dialog = ConfirmExitWOSave()
-    lateinit var list:Array<String?>
     var l: String = ""
     var id:Int = 0
+
+    lateinit var toDoList:Array<ToDoList>
+    var size = 0
+    lateinit var list:Array<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +47,14 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
         var param = intent.extras
         id = param?.getInt("task")!!
+
+        var t = db.taskDao().findById(id.toLong())
+
+        var tl: ToDoList = db.toDoListDao().findById(t.id_ToDoList.toLong())
+        l = tl.name
+        listChoiceE.setText(l)
+        editTask.setText(t.name)
+        dateChoiceE.setText(t.date)
 
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -57,6 +67,7 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             }, year, month, day)
             dpd.show()
         }
+
         dateChoiceE.setKeyListener(null);
         dateChoiceE.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{ view, mYear, mMonth, mDay ->
@@ -70,9 +81,21 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             dialog.show(supportFragmentManager, "Dialog")
         }
 
-        var task = db.taskDao().findById(id!!.toLong())
-        editTask.setText(task.name)
-        dateChoiceE.setText(task.date)
+        listChoiceE.setOnClickListener{
+            val builder = AlertDialog.Builder(this)
+            var p = 0
+            builder.setItems(list) { dialog, which ->
+                for (i in list){
+                    when (which) {
+                        p -> {listChoiceE.setText(list.get(which))}
+                    }
+                    p++
+                }
+            }
+            l = listChoiceE.text.toString()
+            val dialog = builder.create()
+            dialog.show()
+        }
 
     }
 
@@ -96,53 +119,25 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         }
     }
 
-    override fun onItemSelected(arg0: AdapterView<*>, arg1: View, position: Int, id: Long) {
-        l = list[position]!!
-    }
-
-    override fun onNothingSelected(arg0: AdapterView<*>) {
-
-    }
-
-    fun editTask(view: View) {
-        var task = db.taskDao().findById(id!!.toLong())
-        task.name = editTask.text.toString()
-        task.date = dateChoiceE.text.toString()
-
-
-        var toDoList: ToDoList = db.toDoListDao().findByName(l)
-        var toDoList2: ToDoList = db.toDoListDao().findById(task.id_ToDoList.toLong())
-
-        if (toDoList.id != task.id_ToDoList){
-            toDoList.qtd_taks++
-            db.toDoListDao().update(toDoList)
-            toDoList2.qtd_taks--
-            db.toDoListDao().update(toDoList2)
-        }
-        task.id_ToDoList = toDoList.id
-
-        db.taskDao().update(task)
-        setResult(Activity.RESULT_OK)
-        finish()
-    }
-
     override fun onDialogPositiveClick(dialog: DialogFragment) {
         var editText = dialog.dialog.findViewById<EditText>(R.id.nameList)
         var newList = editText.text.toString()
         var t = ToDoList(newList)
         db.toDoListDao().insert(t)
         onResume()
-
+        listChoiceE.setText(t.name)
+        l = t.name
     }
 
     override fun onDialogNegativeClick(dialog: DialogFragment) {
-        Toast.makeText(this,"Cancelada", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,R.string.canceled, Toast.LENGTH_SHORT).show()
     }
 
     override fun onQuitAnyway(dialog: DialogFragment) {
         super.onBackPressed()
         c = true
     }
+
     override fun onCancelQuit(dialog: DialogFragment) {
         c = false
     }
@@ -151,23 +146,42 @@ class EditTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         dialog.show(supportFragmentManager,"DialogWOSave")
     }
 
-    fun listSpinnir(){
-        list = Array(db.toDoListDao().listAll().size) { null }
-        var j=0
-        for (i in db.toDoListDao().listAll()){
-            list.set(j, value = i.name)
-            j++
+    override fun onResume() {
+        super.onResume()
+
+        toDoList = db.toDoListDao().listAll()
+        size = toDoList.size
+        list = Array<String>(size, {i -> i.toString()})
+
+        for (t in 0 until  toDoList.size){
+            list[t] = toDoList[t].name
         }
-        spinnerE!!.setOnItemSelectedListener(this)
-        val array_adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list)
-        array_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerE!!.setAdapter(array_adapter)
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        listSpinnir()
+    fun editTask(view: View) {
+        var task = db.taskDao().findById(id!!.toLong())
+        task.name = editTask.text.toString()
+        task.date = dateChoiceE.text.toString()
+
+        l = listChoiceE.text.toString()
+
+        var toDoList: ToDoList = db.toDoListDao().findByName(l)
+
+        var toDoList2: ToDoList = db.toDoListDao().findById(task.id_ToDoList.toLong())
+
+        if (toDoList.id != task.id_ToDoList){
+            toDoList.qtd_taks++
+            db.toDoListDao().update(toDoList)
+            toDoList2.qtd_taks--
+            db.toDoListDao().update(toDoList2)
+        }
+
+        task.id_ToDoList = toDoList.id
+
+        db.taskDao().update(task)
+        setResult(Activity.RESULT_OK)
+        finish()
     }
 
 }

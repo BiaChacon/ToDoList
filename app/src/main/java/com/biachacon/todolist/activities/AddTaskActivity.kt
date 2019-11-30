@@ -7,10 +7,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.room.Room
 import com.biachacon.todolist.R
@@ -20,12 +19,10 @@ import com.biachacon.todolist.dialogs.ConfirmExitWOSave
 import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.model.ToDoList
 import kotlinx.android.synthetic.main.activity_add_task.*
-import kotlinx.android.synthetic.main.add_list_layout.*
 import java.util.*
 
-class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
-    AddListDialogFragment.NoticeDialogListener,ConfirmExitWOSave.ConfirmeExitWOSaveListener{
-
+class AddTaskActivity : AppCompatActivity(),AddListDialogFragment.NoticeDialogListener,
+    ConfirmExitWOSave.ConfirmeExitWOSaveListener{
 
     val db: AppDatabase by lazy {
         Room.databaseBuilder(this, AppDatabase::class.java, "to-do-list")
@@ -34,19 +31,24 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
     }
 
     var  c :Boolean?=null
-    lateinit var list:Array<String?>
     var l: String = ""
     var date:String = ""
 
     var dialog = ConfirmExitWOSave()
+
+    lateinit var toDoList:Array<ToDoList>
+    var size = 0
+    lateinit var list:Array<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_task)
+
         c = false
+
         val actionBar = supportActionBar
         actionBar!!.title = getString(R.string.add_task)
 
-        //Calendar
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
@@ -59,7 +61,8 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
             }, year, month, day)
             dpd.show()
         }
-        dateChoice.setKeyListener(null);
+
+        dateChoice.setKeyListener(null)
         dateChoice.setOnClickListener {
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view, mYear, mMonth, mDay ->
                 dateChoice.setText(""+ mDay+"/"+mMonth+"/"+mYear)
@@ -68,19 +71,27 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
             dpd.show()
         }
 
-
-        //listSpinnir()
-
-
         addNewlist.setOnClickListener {
             var dialog = AddListDialogFragment()
             dialog.show(supportFragmentManager, "Dialog")
+        }
 
+        listChoice.setOnClickListener{
+            val builder = AlertDialog.Builder(this)
+            var p = 0
+            builder.setItems(list) { dialog, which ->
+                for (i in list){
+                    when (which) {
+                       p -> {listChoice.setText(list.get(which))}
+                    }
+                    p++
+                }
+            }
+            val dialog = builder.create()
+            dialog.show()
         }
 
     }
-
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_add, menu)
@@ -103,11 +114,43 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         }
     }
 
-    override fun onItemSelected(arg0: AdapterView<*>, arg1: View, position: Int, id: Long) {
-        l = list[position]!!
+    override fun onDialogPositiveClick(dialog: DialogFragment) {
+        var editText = dialog.dialog.findViewById<EditText>(R.id.nameList)
+        var newList = editText.text.toString()
+        var t = ToDoList(newList)
+        db.toDoListDao().insert(t)
+        onResume()
+        listChoice.setText(t.name)
+        l = t.name
     }
 
-    override fun onNothingSelected(arg0: AdapterView<*>) {
+    override fun onDialogNegativeClick(dialog: DialogFragment) {
+        Toast.makeText(this,R.string.canceled,Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onQuitAnyway(dialog: DialogFragment) {
+        super.onBackPressed()
+        c = true
+    }
+
+    override fun onCancelQuit(dialog: DialogFragment) {
+        c = false
+    }
+
+    override fun onBackPressed() {
+        dialog.show(supportFragmentManager,"DialogWOSave")
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        toDoList = db.toDoListDao().listAll()
+        size = toDoList.size
+        list = Array<String>(size, {i -> i.toString()})
+
+        for (t in 0 until  toDoList.size){
+            list[t] = toDoList[t].name
+        }
 
     }
 
@@ -123,49 +166,6 @@ class AddTaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         ))
         setResult(Activity.RESULT_OK)
         finish()
-    }
-
-    override fun onDialogPositiveClick(dialog: DialogFragment) {
-        var editText = dialog.dialog.findViewById<EditText>(R.id.nameList)
-        var newList = editText.text.toString()
-        var t = ToDoList(newList)
-        db.toDoListDao().insert(t)
-        onResume()
-    }
-
-    override fun onDialogNegativeClick(dialog: DialogFragment) {
-        Toast.makeText(this,R.string.canceled,Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onQuitAnyway(dialog: DialogFragment) {
-        super.onBackPressed()
-        c = true
-    }
-    override fun onCancelQuit(dialog: DialogFragment) {
-        c = false
-    }
-
-    override fun onBackPressed() {
-        dialog.show(supportFragmentManager,"DialogWOSave")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        listSpinnir()
-    }
-
-    fun listSpinnir(){
-        list = Array(db.toDoListDao().listAll().size) { null }
-        var j=0
-        for (i in db.toDoListDao().listAll()){
-            list.set(j, value = i.name)
-            j++
-        }
-        spinner!!.setOnItemSelectedListener(this)
-        val array_adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list)
-        array_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner!!.setAdapter(array_adapter)
-
     }
 
 }

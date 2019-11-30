@@ -98,11 +98,14 @@
                 android:layout_marginTop="10sp"
                 android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="217dp"
-                    android:layout_height="40sp"
-                    android:layout_weight="7" />
+
+                <EditText
+                    android:id="@+id/listChoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:ems="10"
+                    android:focusable="false"/>
 
                 <ImageButton
                     android:id="@+id/addNewlist"
