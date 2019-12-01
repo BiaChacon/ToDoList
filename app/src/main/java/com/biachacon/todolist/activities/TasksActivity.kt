@@ -1,7 +1,11 @@
 package com.biachacon.todolist.activities
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -19,6 +23,11 @@ class TasksActivity : AppCompatActivity() {
     }
 
     var id:Int = 0
+    val CODE = 99
+    lateinit var tasks:MutableList<Task>
+    lateinit var adapter:Task2Adapter
+    lateinit var  rv: RecyclerView
+    val layout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +39,44 @@ class TasksActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.title = db.toDoListDao().findById(id.toLong()).name
 
-        var tasks:MutableList<Task> = db.taskDao().findByToDoList(id)
+    }
 
-        var adapter = this.let { Task2Adapter(it,tasks) }
+    override fun onResume() {
+        super.onResume()
 
-        var  rv: RecyclerView = this.findViewById(R.id.recyclerview)
+        tasks = db.taskDao().findByToDoList(id)
+
+        adapter = this.let { Task2Adapter(it,tasks) }
+
+        rv = this.findViewById(R.id.recyclerview)
 
         rv.adapter = adapter
 
-        val layout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
         rv.layoutManager = layout
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            CODE ->{
+                when(resultCode){
+                    Activity.RESULT_OK->{
+                        onResume()
+                        Toast.makeText(this, R.string.save, Toast.LENGTH_SHORT).show()
+                    }
+                    Activity.RESULT_CANCELED->{
+                        Toast.makeText(this, R.string.canceled , Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+    }
+
+    fun addTask2(view: View) {
+        val intent = Intent(this, AddTaskActivity::class.java)
+        intent.putExtra("newTask", id)
+        startActivityForResult(intent, CODE)
     }
 
 }

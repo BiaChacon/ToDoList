@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
     }
 
     lateinit var tasks:Array<Task>
-    lateinit var taskToListAdapter:ArrayAdapter<String>
+    lateinit var taskAdapter:ArrayAdapter<String>
 
     val searchManager: SearchManager by lazy {
         getSystemService(Context.SEARCH_SERVICE) as SearchManager
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
             names[i] = tasks[i].name
         }
 
-        taskToListAdapter = ArrayAdapter<String>(
+        taskAdapter = ArrayAdapter<String>(
             this,
             android.R.layout.simple_expandable_list_item_1,
             names)
@@ -126,40 +126,56 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
         })
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
 
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        (menu.findItem(R.id.action_search).actionView as SearchView).apply {
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
-            setIconifiedByDefault(false)
-            isSubmitButtonEnabled = false
-            queryHint = getString(R.string.search)
-            setOnQueryTextListener(object:SearchView.OnQueryTextListener{
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    //Toast.makeText(this, "onQueryTextSubmit - " + query, Toast.LENGTH_LONG).show()
-                    return false
-                }
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    //Toast.makeText(this, "onQueryTextChange - " + newText, Toast.LENGTH_LONG).show()
-                    return false
-                }
+        val  manager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchItem = menu?.findItem(R.id.action_search)
+        val searchView = searchItem?.actionView as SearchView
+
+        searchView.setSearchableInfo(manager.getSearchableInfo(componentName))
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                searchView.setQuery("",false)
+                searchItem.collapseActionView()
+                return false
             }
-            )
-        }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+//                Toast.makeText(this@MainActivity, "Looking for $newText", Toast.LENGTH_LONG).show()
+                return false
+            }
+        })
+
+//        searchView.setOnSuggestionListener(object : SearchView.OnSuggestionListener{
+//            override fun onSuggestionClick(position: Int): Boolean {
+//                // Add clicked text to search box
+//                val ca = searchView.suggestionsAdapter
+//                val cursor = ca.cursor
+//                cursor.moveToPosition(position)
+//                searchView.setQuery(cursor.getString(cursor.getColumnIndex("fishName")), false)
+//                return true
+//            }
+//
+//            override fun onSuggestionSelect(position: Int): Boolean {
+//
+//            }
+//        })
 
         return true
-    }
+   }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         val id = item.getItemId()
 
-        if (id == R.id.action_search) {
-
-//            SearchView(this).apply {
+//        if (id == R.id.action_search) {
+//
+//           SearchView(this).apply {
 //                setIconifiedByDefault(true)
 //                setSearchableInfo(searchManager.getSearchableInfo(componentName))
 //                isSubmitButtonEnabled = false
@@ -180,10 +196,8 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
 //            }.also {
 //                item.actionView = it
 //            }
-
-            return true
-
-        }
+//            return true
+//        }
 
         if (id == R.id.newList) {
             var dialog = AddListDialogFragment()
@@ -223,6 +237,7 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
 
     fun addTask(view: View) {
         val intent = Intent(this, AddTaskActivity::class.java)
+        intent.putExtra("newTask", 1)
         startActivityForResult(intent, CODE)
     }
 

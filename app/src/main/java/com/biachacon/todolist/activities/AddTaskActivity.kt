@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -48,6 +49,13 @@ class AddTaskActivity : AppCompatActivity(),AddListDialogFragment.NoticeDialogLi
 
         val actionBar = supportActionBar
         actionBar!!.title = getString(R.string.add_task)
+
+        var param = intent.extras
+        var id = param?.getInt("newTask")!!
+        var nameList = db.toDoListDao().findById(id.toLong()).name
+
+        listChoice.setText(nameList)
+        l = nameList
 
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -155,6 +163,7 @@ class AddTaskActivity : AppCompatActivity(),AddListDialogFragment.NoticeDialogLi
     }
 
     fun saveTask(view: View) {
+        l = listChoice.text.toString()
         var toDoList:ToDoList = db.toDoListDao().findByName(l)
         toDoList.qtd_taks++
         db.toDoListDao().update(toDoList)
