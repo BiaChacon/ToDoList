@@ -15,10 +15,11 @@ import androidx.room.Room
 import com.biachacon.todolist.R
 import com.biachacon.todolist.activities.TasksActivity
 import com.biachacon.todolist.database.AppDatabase
+import com.biachacon.todolist.fragments.Fragment1
 import com.biachacon.todolist.model.ToDoList
 import kotlinx.android.synthetic.main.edit_list_layout.view.*
 
-class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : RecyclerView.Adapter<ToDoListViewHolder>(){
+class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>, var fragment1: Fragment1) : RecyclerView.Adapter<ToDoListViewHolder>(){
 
     val db: AppDatabase by lazy {
         Room.databaseBuilder(c, AppDatabase::class.java, "to-do-list")
@@ -40,6 +41,10 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: ToDoListViewHolder, position: Int) {
         var toDoListAtual = toDoList[position]
+
+        if(position == itemCount-1){
+            holder.card.visibility = View.INVISIBLE
+        }
 
         holder.layoutList.setOnClickListener{
             var intent = Intent(c, TasksActivity::class.java)
@@ -64,7 +69,6 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
             holder.deleteBt.visibility = View.VISIBLE
             holder.editBt.visibility = View.VISIBLE
         }
-
 
         holder.editBt.setOnClickListener {
             dialogview.nameEditList.setText(toDoListAtual.name)
@@ -102,10 +106,13 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>) : Rec
                     var tasks = db.taskDao().findByToDoList(toDoListAtual.id)
                     for (i in tasks){
                         db.taskDao().delete(i)
+
                     }
+                    fragment1.onResume()
                     db.toDoListDao().delete(toDoListAtual)
                     toDoList.remove(toDoListAtual)
                     notifyDataSetChanged()
+
                     Toast.makeText(c,R.string.list_deleted,Toast.LENGTH_SHORT).show()
                 }
             )

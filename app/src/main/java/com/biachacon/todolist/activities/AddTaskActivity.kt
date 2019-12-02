@@ -163,16 +163,28 @@ class AddTaskActivity : AppCompatActivity(),AddListDialogFragment.NoticeDialogLi
     }
 
     fun saveTask(view: View) {
+
+        var tb = db.taskDao().findByName("Invisivel02122019")
+
+        if(tb != null){
+            db.taskDao().delete(tb)
+        }
+
         l = listChoice.text.toString()
         var toDoList:ToDoList = db.toDoListDao().findByName(l)
         toDoList.qtd_taks++
         db.toDoListDao().update(toDoList)
+
         db.taskDao().insert(Task(
             addTask.text.toString(),
             date,
             false,
             toDoList.id
         ))
+
+        var t =  Task("Invisivel02122019","",false, toDoList.id)
+        db.taskDao().insert(t)
+
         setResult(Activity.RESULT_OK)
         finish()
     }

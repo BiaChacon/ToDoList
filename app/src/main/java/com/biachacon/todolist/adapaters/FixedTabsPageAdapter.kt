@@ -13,7 +13,7 @@ class FixedTabsPageAdapter(fm: FragmentManager, context: Context) : FragmentPage
 
     var c = context
     val f1 = Fragment1()
-    val f2 = Fragment2()
+    val f2 = Fragment2(f1)
     val f3 = Fragment3()
 
 

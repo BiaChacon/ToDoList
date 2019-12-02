@@ -13,7 +13,7 @@ import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.model.ToDoList
 import com.biachacon.todolist.recycler.ToDoListAdapter
 
-class Fragment2 : Fragment() {
+class Fragment2 (var fragment1: Fragment1): Fragment() {
 
     var v:View? = null
     var adapter:ToDoListAdapter? = null
@@ -37,7 +37,7 @@ class Fragment2 : Fragment() {
 
         var toDoList:MutableList<ToDoList> = db.toDoListDao().list()
 
-        adapter = activity?.let { ToDoListAdapter(it,toDoList ) }
+        adapter = activity?.let { ToDoListAdapter(it,toDoList, fragment1 ) }
 
         var  rv:RecyclerView = v!!.findViewById(R.id.recyclerview2)
 

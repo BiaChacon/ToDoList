@@ -2,6 +2,7 @@ package com.biachacon.todolist.recycler
 
 import android.view.View
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.biachacon.todolist.R
 
@@ -13,6 +14,8 @@ class TaskViewHolder(v : View) : RecyclerView.ViewHolder(v) {
     val nameList: TextView
     val deleteTask: ImageButton
     val layoutTask: LinearLayout
+    val cardT:CardView
+
     init {
         nameTask = v.findViewById(R.id.nameTask)
         dateTask = v.findViewById(R.id.dateTask)
@@ -20,6 +23,7 @@ class TaskViewHolder(v : View) : RecyclerView.ViewHolder(v) {
         deleteTask = v.findViewById(R.id.deleteTask)
         finished = v.findViewById(R.id.checkboxTask)
         layoutTask = v.findViewById(R.id.layoutTask)
+        cardT = v.findViewById(R.id.cardT)
     }
 
 }

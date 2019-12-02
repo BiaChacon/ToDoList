@@ -4,15 +4,16 @@ import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
+import android.database.MatrixCursor
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.BaseColumns
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.DialogFragment
 import androidx.room.Room
@@ -24,6 +25,9 @@ import com.biachacon.todolist.dialogs.AddListDialogFragment
 import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.model.ToDoList
 import kotlinx.android.synthetic.main.activity_main.*
+import androidx.cursoradapter.widget.CursorAdapter
+
+
 
 class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogListener{
 
@@ -37,10 +41,6 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
 
     lateinit var tasks:Array<Task>
     lateinit var taskAdapter:ArrayAdapter<String>
-
-    val searchManager: SearchManager by lazy {
-        getSystemService(Context.SEARCH_SERVICE) as SearchManager
-    }
 
     val CODE = 99
 
@@ -66,16 +66,6 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
             this,
             android.R.layout.simple_expandable_list_item_1,
             names)
-
-//        db.toDoListDao().insert(
-//            ToDoList("Teste 1")
-//        )
-//        db.toDoListDao().insert(
-//            ToDoList("Teste 2")
-//        )
-//        db.toDoListDao().insert(
-//            ToDoList("Teste 3")
-//        )
 
         if(getSupportActionBar() != null)
             getSupportActionBar()!!.setElevation(0.0F)
@@ -131,43 +121,106 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
 
-        val  manager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchItem = menu?.findItem(R.id.action_search)
-        val searchView = searchItem?.actionView as SearchView
+//        val searchItem = menu.findItem(R.id.action_search)
+//        val searchView = searchItem?.actionView as SearchView
+//
+//        searchView.queryHint = getString(R.string.search)
+//        searchView.findViewById<AutoCompleteTextView>(R.id.search_src_text).threshold = 1
+//        val from = arrayOf(SearchManager.SUGGEST_COLUMN_TEXT_1)
+//
+//        val to = intArrayOf(R.id.item_label)
+//        val cursorAdapter = SimpleCursorAdapter(this, R.layout.search_item, null, from, to, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER)
+//        val suggestions = listOf("111111", "222222", "3333333", "4444444")
+//
+//
+////        searchView.suggestionsAdapter = cursorAdapter
+//
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                searchView.clearFocus()
+//                searchView.setQuery("",false)
+//                searchItem.collapseActionView()
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(query: String?): Boolean {
+//                val cursor = MatrixCursor(arrayOf(BaseColumns._ID, SearchManager.SUGGEST_COLUMN_TEXT_1))
+//                query?.let {
+//                    suggestions.forEachIndexed { index, suggestion ->
+//                        if (suggestion.contains(query, true))
+//                            cursor.addRow(arrayOf(index, suggestion))
+//                    }
+//                }
+//                cursorAdapter.changeCursor(cursor)
+//                return true
+//            }
+//        })
+//
+//        searchView.setOnSuggestionListener(object: SearchView.OnSuggestionListener {
+//            override fun onSuggestionSelect(position: Int): Boolean {
+//                return false
+//            }
+//
+//            override fun onSuggestionClick(position: Int): Boolean {
+//                searchView.clearFocus()
+//                searchView.setQuery("",false)
+//                searchItem.collapseActionView()
+//                val cursor = searchView.suggestionsAdapter.getItem(position) as Cursor
+//                val selection = cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1))
+//                searchView.setQuery(selection, false)
+//                return true
+//            }
+//        })
+//
+//
+//
+//
+//
 
-        searchView.setSearchableInfo(manager.getSearchableInfo(componentName))
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                searchView.clearFocus()
-                searchView.setQuery("",false)
-                searchItem.collapseActionView()
-                return false
-            }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-//                Toast.makeText(this@MainActivity, "Looking for $newText", Toast.LENGTH_LONG).show()
-                return false
-            }
-        })
 
+
+
+//        val inflater = menuInflater
+//        inflater.inflate(R.menu.menu, menu)
+//
+//        val  manager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+//        val searchItem = menu?.findItem(R.id.action_search)
+//        val searchView = searchItem?.actionView as SearchView
+//
+//        searchView.setSearchableInfo(manager.getSearchableInfo(componentName))
+//
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                searchView.clearFocus()
+//                searchView.setQuery("",false)
+//                searchItem.collapseActionView()
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+////                Toast.makeText(this@MainActivity, "Looking for $newText", Toast.LENGTH_LONG).show()
+//                return false
+//            }
+//        })
+//
 //        searchView.setOnSuggestionListener(object : SearchView.OnSuggestionListener{
 //            override fun onSuggestionClick(position: Int): Boolean {
-//                // Add clicked text to search box
 //                val ca = searchView.suggestionsAdapter
 //                val cursor = ca.cursor
 //                cursor.moveToPosition(position)
-//                searchView.setQuery(cursor.getString(cursor.getColumnIndex("fishName")), false)
+//                searchView.setQuery(cursor.getString(cursor.getColumnIndex("task")), false)
 //                return true
 //            }
 //
 //            override fun onSuggestionSelect(position: Int): Boolean {
-//
+//                return true
 //            }
 //        })
 
         return true
-   }
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
@@ -225,7 +278,7 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
             CODE ->{
                 when(resultCode){
                     Activity.RESULT_OK->{
-                        Toast.makeText(this, R.string.save, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show()
                     }
                     Activity.RESULT_CANCELED->{
                         Toast.makeText(this, R.string.canceled , Toast.LENGTH_SHORT).show()
@@ -245,13 +298,22 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
         var editText = dialog.dialog.findViewById<EditText>(R.id.nameList)
         var newList = editText.text.toString()
         var t = ToDoList(newList)
+
+        var r = db.toDoListDao().findByName("Invisivel02122019")
+
+        if(r != null){
+            db.toDoListDao().delete(r)
+        }
+
+        var list = ToDoList("Invisivel02122019")
         db.toDoListDao().insert(t)
-        Log.i("teste","chegou")
+        db.toDoListDao().insert(list)
+
         pageAdapter.f2.onResume()
     }
 
     override fun onDialogNegativeClick(dialog: DialogFragment) {
-        Toast.makeText(this,"Cancelada",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,R.string.canceled,Toast.LENGTH_SHORT).show()
     }
 
 }

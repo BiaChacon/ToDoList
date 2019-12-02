@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.biachacon.todolist.R
 
@@ -16,6 +17,7 @@ class ToDoListViewHolder(v : View) : RecyclerView.ViewHolder(v)  {
     val layoutQtdTasks: LinearLayout
     val noTasks: TextView
     val layoutList:LinearLayout
+    val card:CardView
 
     init {
         nameToDoList = v.findViewById(R.id.nameToDoList)
@@ -25,6 +27,7 @@ class ToDoListViewHolder(v : View) : RecyclerView.ViewHolder(v)  {
         layoutQtdTasks = v.findViewById(R.id.layoutQtdTasks)
         noTasks = v.findViewById(R.id.noTasks)
         layoutList = v.findViewById(R.id.layoutList)
+        card = v.findViewById(R.id.card)
     }
 
 }

@@ -49,21 +49,6 @@ class Fragment3 : Fragment() {
 
         rv.layoutManager = layout
 
-        recyclerview3.addOnItemTouchListener(
-            MyRecyclerViewClickListener(
-                this!!.activity!!,
-                recyclerview3,
-                object : MyRecyclerViewClickListener.OnItemClickListener {
-                    override fun onItemClick(view: View, position: Int) {
-                        Toast.makeText(activity, "Clique simples", Toast.LENGTH_SHORT).show()
-                    }
-
-                    override fun onItemLongClick(view: View, position: Int) {
-
-                    }
-                })
-        )
-
     }
 
 }

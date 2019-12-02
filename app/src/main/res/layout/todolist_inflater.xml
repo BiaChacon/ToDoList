@@ -10,7 +10,8 @@
     android:foreground="?android:attr/selectableItemBackground"
     app:cardBackgroundColor="@color/write"
     app:cardCornerRadius="5dp"
-    tools:ignore="MissingDefaultResource">
+    tools:ignore="MissingDefaultResource"
+    android:id="@+id/card">
 
     <LinearLayout
         android:layout_width="match_parent"
