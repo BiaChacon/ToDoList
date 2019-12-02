@@ -1,4 +1,4 @@
-package com.biachacon.todolist.recycler
+package com.biachacon.todolist.adapaters
 
 import android.app.AlertDialog
 import android.content.Context
@@ -15,11 +15,12 @@ import androidx.room.Room
 import com.biachacon.todolist.R
 import com.biachacon.todolist.activities.TasksActivity
 import com.biachacon.todolist.database.AppDatabase
-import com.biachacon.todolist.fragments.Fragment1
+import com.biachacon.todolist.fragments.TasksFragment
 import com.biachacon.todolist.model.ToDoList
+import com.biachacon.todolist.viewholder.ToDoListViewHolder
 import kotlinx.android.synthetic.main.edit_list_layout.view.*
 
-class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>, var fragment1: Fragment1) : RecyclerView.Adapter<ToDoListViewHolder>(){
+class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>, var tasksFragment: TasksFragment) : RecyclerView.Adapter<ToDoListViewHolder>(){
 
     val db: AppDatabase by lazy {
         Room.databaseBuilder(c, AppDatabase::class.java, "to-do-list")
@@ -108,7 +109,7 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>, var f
                         db.taskDao().delete(i)
 
                     }
-                    fragment1.onResume()
+                    tasksFragment.onResume()
                     db.toDoListDao().delete(toDoListAtual)
                     toDoList.remove(toDoListAtual)
                     notifyDataSetChanged()

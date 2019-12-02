@@ -1,4 +1,4 @@
-package com.biachacon.todolist.recycler
+package com.biachacon.todolist.adapaters
 
 import android.app.AlertDialog
 import android.content.Context
@@ -15,6 +15,7 @@ import com.biachacon.todolist.activities.EditTaskActivity
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.model.ToDoList
+import com.biachacon.todolist.viewholder.TaskViewHolder
 
 class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Adapter<TaskViewHolder>()
     /*,ConfirmFinishedDialog.NoticeDialogListener,ConfirmDeleteDialog.NoticeDialogListener*/ {

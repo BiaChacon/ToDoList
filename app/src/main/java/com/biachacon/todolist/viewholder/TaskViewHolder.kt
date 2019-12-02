@@ -1,4 +1,4 @@
-package com.biachacon.todolist.recycler
+package com.biachacon.todolist.viewholder
 
 import android.view.View
 import android.widget.*

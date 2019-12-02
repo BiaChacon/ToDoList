@@ -13,6 +13,7 @@ import com.biachacon.todolist.R
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.model.ToDoList
+import com.biachacon.todolist.viewholder.TaskViewHolder
 
 class Task2Adapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Adapter<TaskViewHolder>(){
 

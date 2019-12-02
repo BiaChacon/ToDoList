@@ -11,9 +11,9 @@ import androidx.room.Room
 import com.biachacon.todolist.R
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.model.Task
-import com.biachacon.todolist.recycler.TaskAdapter
+import com.biachacon.todolist.adapaters.TaskAdapter
 
-class Fragment1 : Fragment() {
+class TasksFragment : Fragment() {
 
     var v:View? = null
 
@@ -36,7 +36,7 @@ class Fragment1 : Fragment() {
 
         var tasks:MutableList<Task> = db.taskDao().findByNotFinished()
 
-        var adapter = activity?.let { TaskAdapter(it,tasks) }
+        var adapter = activity?.let { TaskAdapter(it, tasks) }
 
         var  rv: RecyclerView = v!!.findViewById(R.id.recyclerview1)
 

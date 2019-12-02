@@ -11,12 +11,12 @@ import androidx.room.Room
 import com.biachacon.todolist.R
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.model.ToDoList
-import com.biachacon.todolist.recycler.ToDoListAdapter
+import com.biachacon.todolist.adapaters.ToDoListAdapter
 
-class Fragment2 (var fragment1: Fragment1): Fragment() {
+class ToDoListFragment (var tasksFragment: TasksFragment): Fragment() {
 
     var v:View? = null
-    var adapter:ToDoListAdapter? = null
+    var adapter: ToDoListAdapter? = null
 
     val db: AppDatabase by lazy {
         Room.databaseBuilder(this!!.activity!!, AppDatabase::class.java, "to-do-list")
@@ -37,7 +37,13 @@ class Fragment2 (var fragment1: Fragment1): Fragment() {
 
         var toDoList:MutableList<ToDoList> = db.toDoListDao().list()
 
-        adapter = activity?.let { ToDoListAdapter(it,toDoList, fragment1 ) }
+        adapter = activity?.let {
+            ToDoListAdapter(
+                it,
+                toDoList,
+                tasksFragment
+            )
+        }
 
         var  rv:RecyclerView = v!!.findViewById(R.id.recyclerview2)
 
