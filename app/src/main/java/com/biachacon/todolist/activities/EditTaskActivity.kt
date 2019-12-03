@@ -151,9 +151,9 @@ class EditTaskActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialog
 
         toDoList = db.toDoListDao().listAll()
         size = toDoList.size
-        list = Array<String>(size, {i -> i.toString()})
+        list = Array<String>(size-1, {i -> i.toString()})
 
-        for (t in 0 until  toDoList.size){
+        for (t in 0 until  toDoList.size-1){
             list[t] = toDoList[t].name
         }
 
