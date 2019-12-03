@@ -3,6 +3,7 @@ package com.biachacon.todolist.recycler
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.biachacon.todolist.R
+import com.biachacon.todolist.activities.EditTaskActivity
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.model.ToDoList
@@ -36,13 +38,15 @@ class Task2Adapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.A
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val taskAtual = tasks[position]
-
-        if(position == itemCount-1 && position > 0){
-            holder.cardT.visibility = View.INVISIBLE
-        }
         
         holder.nameTask.text = taskAtual.name
         holder.dateTask.text = taskAtual.date
+
+        holder.layoutTask.setOnClickListener{
+            var intent = Intent(c, EditTaskActivity::class.java)
+            intent.putExtra("task", taskAtual.id)
+            c.startActivity(intent)
+        }
 
         if(taskAtual.date != "")
             holder.dateTask.visibility = View.VISIBLE
@@ -118,6 +122,11 @@ class Task2Adapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.A
             var dialog = alert.create()
             dialog.show()
 
+        }
+
+
+        if(taskAtual.name == "Invisivel02122019"){
+            holder.cardT.visibility = View.INVISIBLE
         }
 
     }

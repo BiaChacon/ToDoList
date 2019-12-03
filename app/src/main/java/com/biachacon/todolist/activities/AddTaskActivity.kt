@@ -155,9 +155,11 @@ class AddTaskActivity : AppCompatActivity(),AddListDialogFragment.NoticeDialogLi
     override fun onCancelQuit(dialog: DialogFragment) {
         c = false
     }
+
     fun somethingNotChanged():Boolean{
         return addTask.text.isEmpty() && dateChoice.text.isEmpty()
     }
+
     override fun onBackPressed() {
         if(somethingNotChanged()) {
             super.onBackPressed()

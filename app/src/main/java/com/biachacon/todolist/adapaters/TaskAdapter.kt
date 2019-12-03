@@ -42,10 +42,6 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val taskAtual = tasks[position]
 
-        if(position == itemCount-1 && position > 0){
-            holder.cardT.visibility = View.INVISIBLE
-        }
-
         holder.nameTask.text = taskAtual.name
         holder.dateTask.text = taskAtual.date
 
@@ -154,7 +150,9 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
             dialog.show()
         }
 
-
+        if(taskAtual.name == "Invisivel02122019"){
+            holder.cardT.visibility = View.INVISIBLE
+        }
 
             //showNoticeDialog()
             //if(confirmed){
