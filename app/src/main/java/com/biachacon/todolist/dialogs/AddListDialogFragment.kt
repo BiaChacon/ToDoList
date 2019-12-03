@@ -47,5 +47,4 @@ class AddListDialogFragment:DialogFragment() {
             builder.create()
         }?: throw IllegalStateException("Activity not found")
     }
-
 }

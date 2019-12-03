@@ -297,19 +297,17 @@ class MainActivity : AppCompatActivity(), AddListDialogFragment.NoticeDialogList
     override fun onDialogPositiveClick(dialog: DialogFragment) {
         var editText = dialog.dialog.findViewById<EditText>(R.id.nameList)
         var newList = editText.text.toString()
-        var t = ToDoList(newList)
-
-        var r = db.toDoListDao().findByName("Invisivel02122019")
-
-        if(r != null){
-            db.toDoListDao().delete(r)
+        if (!newList.isEmpty()) {
+            var t = ToDoList(newList)
+            var r = db.toDoListDao().findByName("Invisivel02122019")
+            if (r != null) {
+                db.toDoListDao().delete(r)
+            }
+            var list = ToDoList("Invisivel02122019")
+            db.toDoListDao().insert(t)
+            db.toDoListDao().insert(list)
+            pageAdapter.f2.onResume()
         }
-
-        var list = ToDoList("Invisivel02122019")
-        db.toDoListDao().insert(t)
-        db.toDoListDao().insert(list)
-
-        pageAdapter.f2.onResume()
     }
 
     override fun onDialogNegativeClick(dialog: DialogFragment) {

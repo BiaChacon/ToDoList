@@ -16,6 +16,7 @@ import androidx.room.Room
 import com.biachacon.todolist.R
 import com.biachacon.todolist.database.AppDatabase
 import com.biachacon.todolist.dialogs.AddListDialogFragment
+import com.biachacon.todolist.dialogs.AddTextDialog
 import com.biachacon.todolist.dialogs.ConfirmExitWOSave
 import com.biachacon.todolist.model.Task
 import com.biachacon.todolist.model.ToDoList
@@ -36,6 +37,7 @@ class AddTaskActivity : AppCompatActivity(),AddListDialogFragment.NoticeDialogLi
     var date:String = ""
 
     var dialog = ConfirmExitWOSave()
+    var dialogAddText = AddTextDialog()
 
     lateinit var toDoList:Array<ToDoList>
     var size = 0
@@ -83,7 +85,6 @@ class AddTaskActivity : AppCompatActivity(),AddListDialogFragment.NoticeDialogLi
             var dialog = AddListDialogFragment()
             dialog.show(supportFragmentManager, "Dialog")
         }
-
         listChoice.setOnClickListener{
             val builder = AlertDialog.Builder(this)
             var p = 0
@@ -98,9 +99,7 @@ class AddTaskActivity : AppCompatActivity(),AddListDialogFragment.NoticeDialogLi
             val dialog = builder.create()
             dialog.show()
         }
-
     }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_add, menu)
         return true
@@ -110,13 +109,17 @@ class AddTaskActivity : AppCompatActivity(),AddListDialogFragment.NoticeDialogLi
         val id = item.getItemId()
         return when(id){
             R.id.cancel -> {
-                dialog.show(supportFragmentManager,"DialogWOSave")
-                if (c == true) {
+                if (somethingNotChanged()){
                     setResult(Activity.RESULT_CANCELED)
                     finish()
+                }else {
+                    dialog.show(supportFragmentManager, "DialogWOSave")
+                }
+                if (c == true) {
+                setResult(Activity.RESULT_CANCELED)
+                finish()
                 }
                 true
-
             }
             else -> super.onOptionsItemSelected(item)
         }
@@ -125,11 +128,19 @@ class AddTaskActivity : AppCompatActivity(),AddListDialogFragment.NoticeDialogLi
     override fun onDialogPositiveClick(dialog: DialogFragment) {
         var editText = dialog.dialog.findViewById<EditText>(R.id.nameList)
         var newList = editText.text.toString()
-        var t = ToDoList(newList)
-        db.toDoListDao().insert(t)
-        onResume()
-        listChoice.setText(t.name)
-        l = t.name
+        if(!newList.isEmpty()) {
+            var t = ToDoList(newList)
+            var r = db.toDoListDao().findByName("Invisivel02122019")
+            if (r != null) {
+                db.toDoListDao().delete(r)
+            }
+            var list = ToDoList("Invisivel02122019")
+            db.toDoListDao().insert(t)
+            db.toDoListDao().insert(list)
+            onResume()
+            listChoice.setText(t.name)
+            l = t.name
+        }
     }
 
     override fun onDialogNegativeClick(dialog: DialogFragment) {
@@ -144,9 +155,15 @@ class AddTaskActivity : AppCompatActivity(),AddListDialogFragment.NoticeDialogLi
     override fun onCancelQuit(dialog: DialogFragment) {
         c = false
     }
-
+    fun somethingNotChanged():Boolean{
+        return addTask.text.isEmpty() && dateChoice.text.isEmpty()
+    }
     override fun onBackPressed() {
-        dialog.show(supportFragmentManager,"DialogWOSave")
+        if(somethingNotChanged()) {
+            super.onBackPressed()
+        }else{
+            dialog.show(supportFragmentManager, "DialogWOSave")
+        }
     }
 
     override fun onResume() {
@@ -154,39 +171,44 @@ class AddTaskActivity : AppCompatActivity(),AddListDialogFragment.NoticeDialogLi
 
         toDoList = db.toDoListDao().listAll()
         size = toDoList.size
-        list = Array<String>(size, {i -> i.toString()})
+        list = Array<String>(size-1, {i -> i.toString()})
 
-        for (t in 0 until  toDoList.size){
+        for (t in 0 until  toDoList.size-1){
             list[t] = toDoList[t].name
         }
 
     }
 
     fun saveTask(view: View) {
+        if(addTask.text.isEmpty()){
+            dialogAddText.show(supportFragmentManager,"DialogAddText")
+        }else {
+            var tb = db.taskDao().findByName("Invisivel02122019")
 
-        var tb = db.taskDao().findByName("Invisivel02122019")
+            if (tb != null) {
+                db.taskDao().delete(tb)
+            }
 
-        if(tb != null){
-            db.taskDao().delete(tb)
+            l = listChoice.text.toString()
+            var toDoList: ToDoList = db.toDoListDao().findByName(l)
+            toDoList.qtd_taks++
+            db.toDoListDao().update(toDoList)
+
+            db.taskDao().insert(
+                Task(
+                    addTask.text.toString(),
+                    date,
+                    false,
+                    toDoList.id
+                )
+            )
+
+            var t = Task("Invisivel02122019", "", false, toDoList.id)
+            db.taskDao().insert(t)
+
+            setResult(Activity.RESULT_OK)
+            finish()
         }
-
-        l = listChoice.text.toString()
-        var toDoList:ToDoList = db.toDoListDao().findByName(l)
-        toDoList.qtd_taks++
-        db.toDoListDao().update(toDoList)
-
-        db.taskDao().insert(Task(
-            addTask.text.toString(),
-            date,
-            false,
-            toDoList.id
-        ))
-
-        var t =  Task("Invisivel02122019","",false, toDoList.id)
-        db.taskDao().insert(t)
-
-        setResult(Activity.RESULT_OK)
-        finish()
     }
 
 }
