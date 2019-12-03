@@ -42,7 +42,7 @@ class TaskAdapter(var c: Context, var tasks:MutableList<Task>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val taskAtual = tasks[position]
 
-        if(position == itemCount-1){
+        if(position == itemCount-1 && position > 0){
             holder.cardT.visibility = View.INVISIBLE
         }
 

@@ -43,7 +43,7 @@ class ToDoListAdapter (var c: Context, var toDoList:MutableList<ToDoList>, var t
     override fun onBindViewHolder(holder: ToDoListViewHolder, position: Int) {
         var toDoListAtual = toDoList[position]
 
-        if(position == itemCount-1){
+        if(position == itemCount-1 && position > 0){
             holder.card.visibility = View.INVISIBLE
         }
 
