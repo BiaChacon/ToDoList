@@ -25,7 +25,7 @@ Mobile application to manage tasks. To Do List is the simplest and most effectiv
 <img src="https://user-images.githubusercontent.com/42190754/80289373-60b82d00-8714-11ea-8d51-84a5e475efea.gif" width="300" height="600"/>
 
 ## License 📝 
-This project is under MIT. See at here [LICENSE](https://github.com/BiaChacon/be-the-hero/blob/master/LICENSE) for more informations.
+This project is under MIT. See at here [LICENSE](https://github.com/BiaChacon/ToDoList/blob/master/LICENSE) for more informations.
 
 ## Authors 
 <table>
