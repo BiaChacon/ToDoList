@@ -4,7 +4,6 @@
   <strong align="center">To Do List</strong>
 </p>
 </h1> 
-<br/>
 <p align="center">
   <img src="https://user-images.githubusercontent.com/42190754/80289148-331eb400-8713-11ea-88a1-e1c40dbd1648.gif" float="center" width="300" height="600"/>
 </p>
